@@ -7,18 +7,18 @@ curl -XPOST localhost:9200/herodotus -H"Content-Type: application/json" -d '{
             "_source" : { "enabled" : true },
             "properties" : {
                 "id" : { 	"store" : "yes",   	"type" : "integer", "index" : "not_analyzed" },
-                "title" : { 	"store" : "yes",    "type" : "string", "index" : "analyzed" },
-                "content" : { 	"store" : "yes",	"type" : "string", "index" : "analyzed" },
+                "title" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "analyzed" },
+                "content" : { "null_value" : "na",	"store" : "yes",	"type" : "string", "index" : "analyzed" },
                 "categories": {
                     "properties" : {    	
-	                	"title": { "store" : "yes", 	"type": "string", "index": "analyzed"},
-	                   	"ns": {    "store" : "yes",   	"type": "string", "index": "analyzed"}
+	                	"title": {"null_value" : "na", "store" : "yes", 	"type": "string", "index": "analyzed"},
+	                   	"ns": { "null_value" : "na",   "store" : "yes",   	"type": "string", "index": "analyzed"}
 	                }
             	},
                 "outlinks": {
                 	"properties": {
-                    	"title": { "store" : "yes",   	"type": "string", "index": "analyzed"},
-                    	"ns": {   "store" : "yes",     	"type": "string", "index": "analyzed"}
+                    	"title": { "null_value" : "na", "store" : "yes",   	"type": "string", "index": "analyzed"},
+                    	"ns": {  "null_value" : "na", "store" : "yes",     	"type": "string", "index": "analyzed"}
                 	}
             	}
             }

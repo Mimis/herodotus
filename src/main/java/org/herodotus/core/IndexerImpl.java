@@ -81,7 +81,7 @@ public class IndexerImpl implements Indexer {
 		Page page2 = new Page();
 		page2.setId(2);
 		page2.setTitle("Veria Archealogical Museum");
-		page2.setContent("Veria Archealogical Museum");
+//		page2.setContent("Veria Archealogical Museum");
 		page2.setCategories(categoryList);
 		page2.setOutlinks(outlinksList);
 		
