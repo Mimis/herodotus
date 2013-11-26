@@ -4,27 +4,21 @@ curl -XPOST localhost:9200/herodotus -d '{
     },
     "mappings" : {
         "page" : {
-            "_source" : { "enabled" : false },
+            "_source" : { "enabled" : true },
             "properties" : {
-                "id" : {                "store" : "yes",
-                 "type" : "integer", "index" : "not_analyzed" },
-                "title" : {                 "store" : "yes",
-                "type" : "string", "index" : "analyzed" },
-                "content" : { "store" : "yes","type" : "string", "index" : "analyzed" },
+                "id" : { 		"store" : "yes",   	"type" : "integer", "index" : "not_analyzed" },
+                "title" : { 	"store" : "yes",    "type" : "string", "index" : "analyzed" },
+                "content" : { 	"store" : "yes",	"type" : "string", "index" : "analyzed" },
                 "categories": {
                     "properties" : {    	
-	                	"title": {                "store" : "yes",
-	                	"type": "string", "index": "analyzed"},
-	                   	"ns": {                "store" : "yes",
-	                   	"type": "string", "index": "analyzed"}
+	                	"title": { "store" : "yes", 	"type": "string", "index": "analyzed"},
+	                   	"ns": {    "store" : "yes",   	"type": "string", "index": "analyzed"}
 	                }
             	},
                 "outlinks": {
                 	"properties": {
-                    	"title": {                "store" : "yes",
-                    	"type": "string", "index": "analyzed"},
-                    	"ns": {                "store" : "yes",
-                    	"type": "string", "index": "analyzed"}
+                    	"title": { "store" : "yes",   	"type": "string", "index": "analyzed"},
+                    	"ns": {   "store" : "yes",     	"type": "string", "index": "analyzed"}
                 	}
             	}
             }
