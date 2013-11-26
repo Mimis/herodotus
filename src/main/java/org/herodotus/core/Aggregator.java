@@ -18,6 +18,7 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.herodotus.domain.Page;
 
 /**
  * Hello world!
@@ -35,6 +36,8 @@ public class Aggregator {
 	
 	
 	public static void pageSemantics(String url) throws IOException,JsonParseException, JsonMappingException {
+		List<Page> pageList = new ArrayList<Page>();
+		
 		byte[] jsonBytes = getUrl(url).getBytes();
 		List<String> museumsTitleList = getLinksAttr(jsonBytes,"links");
 				
@@ -42,11 +45,11 @@ public class Aggregator {
 		Map<String,Integer> linksDfMap = new HashMap<String,Integer>();
 		Map<String,Integer> categoriesDfMap = new HashMap<String,Integer>(); 
 		
-		int c=0;
 		for(String museumTitle:museumsTitleList){
-			if(c++ ==20)break;
-			//System.out.println(museumTitle);
-
+			Page page = new Page();
+			
+			//get page info
+			
 			//get page outlinks
 			String pageUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=links&pllimit=500&format=json";
 			byte[] pageJsonBytes = getUrl(pageUrl).getBytes();
@@ -64,7 +67,7 @@ public class Aggregator {
 				continue;
 			}
 			
-			//count frequencies
+			//count global frequencies
 			countDf(outLinksList,linksDfMap);
 			countDf(categoriesList,categoriesDfMap);
 		}
@@ -80,6 +83,8 @@ public class Aggregator {
 		for(Map.Entry<String, Integer> entry:categoriesDfMap.entrySet()){
 			System.out.println(entry.getKey()+"\t"+entry.getValue());
 		}
+		
+		
 	}
 	
 	public static boolean isValidPage(String title,List<String> categoriesList){
