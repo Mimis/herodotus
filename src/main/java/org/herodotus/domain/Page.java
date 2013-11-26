@@ -18,22 +18,6 @@ public class Page {
 	
 	
 	
-	/**
-	 * @param id
-	 * @param title
-	 * @param content
-	 * @param categories
-	 * @param outlinks
-	 */
-	public Page(long id, String title, String content, List<Link> categories,
-			List<Link> outlinks) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.content = content;
-		this.categories = categories;
-		this.outlinks = outlinks;
-	}
 
 	public String getTitle() {
 		return title;
