@@ -1,0 +1,26 @@
+// Page info
+http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=info
+
+
+// Outlinks in Wikipedia
+http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=links&pllimit=150
+http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=links
+
+
+// External outlinks
+http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=extlinks
+http://en.wikipedia.org/w/api.php?action=query&pageids=10944017&prop=extlinks  [with id]
+
+
+// Categories
+http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=categories
+
+
+// Backlinks
+http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bltitle=Acropolis%20Museum&bllimit=500
+http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bltitle=Acropolis%20Museum&bllimit=5&blcontinue=0|Acropolis_Museum|24253|
+http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bltitle=Acropolis%20Museum&bllimit=5&blfilterredir=nonredirects
+
+
+// Format JSON
+http://en.wikipedia.org/w/api.php?action=query&format=json&list=backlinks&bltitle=Acropolis%20Museum&bllimit=5&blfilterredir=nonredirects
