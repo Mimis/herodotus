@@ -1,4 +1,4 @@
-package org.herodotus;
+package org.herodotus.core;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * Hello world!
  * 
  */
-public class App {
+public class Aggregator {
 
 	public static void main(String[] args) throws IOException {
 		

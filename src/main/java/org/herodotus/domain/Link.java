@@ -1,4 +1,4 @@
-package org.herodotus;
+package org.herodotus.domain;
 
 public class Link {
 	

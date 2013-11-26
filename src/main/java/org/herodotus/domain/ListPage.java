@@ -1,4 +1,4 @@
-package org.herodotus;
+package org.herodotus.domain;
 
 import java.util.List;
 
