@@ -3,10 +3,12 @@ package org.herodotus.domain;
 import java.util.List;
 
 public class Page {
+
+	private long id;
 	
 	private String title;
 	
-	private long id;
+	private String content;
 	
 	private List<Link> categories;
 	
@@ -43,6 +45,13 @@ public class Page {
 	public void setOutlinks(List<Link> outlinks) {
 		this.outlinks = outlinks;
 	}
-	
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}	
 
 }
