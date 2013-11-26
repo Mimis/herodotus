@@ -1,4 +1,4 @@
-curl -XPOST localhost:9200/herodotus -d '{
+curl -XPOST localhost:9200/herodotus -H"Content-Type: application/json" -d '{
     "settings" : {
         "number_of_shards" : 1
     },
@@ -6,7 +6,7 @@ curl -XPOST localhost:9200/herodotus -d '{
         "page" : {
             "_source" : { "enabled" : true },
             "properties" : {
-                "id" : { 		"store" : "yes",   	"type" : "integer", "index" : "not_analyzed" },
+                "id" : { 	"store" : "yes",   	"type" : "integer", "index" : "not_analyzed" },
                 "title" : { 	"store" : "yes",    "type" : "string", "index" : "analyzed" },
                 "content" : { 	"store" : "yes",	"type" : "string", "index" : "analyzed" },
                 "categories": {

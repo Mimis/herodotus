@@ -1,0 +1,6 @@
+# search index
+http://localhost:9200/herodotus/page/_search?q=title:Veria&pretty=true
+
+
+# delete index
+curl -XDELETE 'http://localhost:9200/herodotus'
