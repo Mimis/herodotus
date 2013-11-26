@@ -4,7 +4,14 @@ public class Link {
 	
 	private String title;
 	
-	private String ns;
+
+	/**
+	 * @param title
+	 */
+	public Link(String title) {
+		super();
+		this.title = title;
+	}
 
 	public String getTitle() {
 		return title;
@@ -14,13 +21,14 @@ public class Link {
 		this.title = title;
 	}
 
-	public String getNs() {
-		return ns;
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Link [title=" + title + "]";
 	}
 
-	public void setNs(String ns) {
-		this.ns = ns;
-	}
-
+	
 
 }
