@@ -2,8 +2,11 @@
 http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=info
 
 
+//Page content
+http://en.wikipedia.org/w/api.php?action=parse&page=Stack_overflow&format=json&prop=text&section=0
+
 // Outlinks in Wikipedia
-http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=links&pllimit=150
+http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=links&pllimit=150&format=json
 http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=links
 
 
