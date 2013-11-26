@@ -29,6 +29,9 @@ public class Aggregator {
 		
 		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
 		pageSemantics(url);
+		
+		Indexer indexer = new IndexerImpl();
+		
 	}
 	
 	
