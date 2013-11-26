@@ -1,0 +1,1799 @@
+{
+   "query":{
+      "normalized":[
+         {
+            "from":"List_of_museums_in_Greece",
+            "to":"List of museums in Greece"
+         }
+      ],
+      "pages":{
+         "1201194":{
+            "pageid":1201194,
+            "ns":0,
+            "title":"List of museums in Greece",
+            "links":[
+               {
+                  "ns":0,
+                  "title":"1912\u20131913 War Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Achaea"
+               },
+               {
+                  "ns":0,
+                  "title":"Acropolis Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Aetolia-Acarnania"
+               },
+               {
+                  "ns":0,
+                  "title":"Aiani Archaeological Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Aitoloakarnania Folklore Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Alexander K.Damtsas Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Alonissos Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Andros"
+               },
+               {
+                  "ns":0,
+                  "title":"Andros Maritime Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Andros Museum of Modern Art"
+               },
+               {
+                  "ns":0,
+                  "title":"Anthropological and Folklore Museum (Ptolemaida)"
+               },
+               {
+                  "ns":0,
+                  "title":"Aquarium of Rhodes"
+               },
+               {
+                  "ns":0,
+                  "title":"Aquaworld Aquarium"
+               },
+               {
+                  "ns":0,
+                  "title":"Arcadia"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Collection of Arta"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum (Pella)"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum (Serres)"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Abdera"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Acharnes"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Aegina"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Agios Nikolaos"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Agrinion"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Aigion"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Almyros"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Amphipolis"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Ancient Corinth"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Andros"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Argos"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Argostoli"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Astros"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Astypalaia"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Brauron"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Chania"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Chios"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Corfu"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Delos"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Dion"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Drama"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Eleusis"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Epidaurus"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Eretria"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Florina"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Ioannina"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Kavala"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Kilkis"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Komotini"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Kozani"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Lamia"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Lavrion"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Marathon"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Messenia"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Mykonos"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Mystras"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Mytilene"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Nafplion"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Naxos"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Nemea"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Nikopolis"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Olympia"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Patras"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Piraeus"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Polygyros"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Poros"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Rethymno"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Rhodes"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Samothrace"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Sitia"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Skyros"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Sparta"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Thera"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Veroia"
+               },
+               {
+                  "ns":0,
+                  "title":"Archaeological Museum of Volos"
+               },
+               {
+                  "ns":0,
+                  "title":"Argolis"
+               },
+               {
+                  "ns":0,
+                  "title":"Art Gallery of the Society of Macedonian Studies"
+               },
+               {
+                  "ns":0,
+                  "title":"Arta (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Arta Folklore Museum of \"Skoufas\" Association"
+               },
+               {
+                  "ns":0,
+                  "title":"Atat\u00fcrk Museum (Thessaloniki)"
+               },
+               {
+                  "ns":0,
+                  "title":"Athens International Airport Archaeological Collection"
+               },
+               {
+                  "ns":0,
+                  "title":"Athens University Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Athens War Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Athinais Culture Center"
+               },
+               {
+                  "ns":0,
+                  "title":"Attica (region)"
+               },
+               {
+                  "ns":0,
+                  "title":"Averoff Gallery"
+               },
+               {
+                  "ns":0,
+                  "title":"Banknote Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Basketry Museum of the Roma"
+               },
+               {
+                  "ns":0,
+                  "title":"Benaki Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Bernier-Iliadis Gallery Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Boeotia"
+               },
+               {
+                  "ns":0,
+                  "title":"Byzantine Museum of Antivouniotissa"
+               },
+               {
+                  "ns":0,
+                  "title":"Byzantine Museum of Ioannina"
+               },
+               {
+                  "ns":0,
+                  "title":"Byzantine Museum of Kastoria"
+               },
+               {
+                  "ns":0,
+                  "title":"Byzantine Museum of Komotini"
+               },
+               {
+                  "ns":0,
+                  "title":"Byzantine Museum of Veroia"
+               },
+               {
+                  "ns":0,
+                  "title":"Byzantine and Christian Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Byzantine and Post-Byzantine Collection of Chania"
+               },
+               {
+                  "ns":0,
+                  "title":"Central Athens (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Central Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"Central Macedonia"
+               },
+               {
+                  "ns":0,
+                  "title":"Centre for the Study of Traditional Pottery"
+               },
+               {
+                  "ns":0,
+                  "title":"Cephalonia"
+               },
+               {
+                  "ns":0,
+                  "title":"Chalkidiki"
+               },
+               {
+                  "ns":0,
+                  "title":"Chania (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Chios (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Chios Byzantine Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Chrysoula Zogia Museum and Art Gallery"
+               },
+               {
+                  "ns":0,
+                  "title":"Cinema Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"City of Athens Cultural Center"
+               },
+               {
+                  "ns":0,
+                  "title":"Collection of Agia Aikaterini of Sinai"
+               },
+               {
+                  "ns":0,
+                  "title":"Collection of Agios Matthaios of Sinai"
+               },
+               {
+                  "ns":0,
+                  "title":"Corfu (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Corinthia"
+               },
+               {
+                  "ns":0,
+                  "title":"Costume Museum (Kastoria)"
+               },
+               {
+                  "ns":0,
+                  "title":"Crete"
+               },
+               {
+                  "ns":0,
+                  "title":"Delphi Archaeological Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Dependent territory"
+               },
+               {
+                  "ns":0,
+                  "title":"Design Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Design Museum of the 20th Century"
+               },
+               {
+                  "ns":0,
+                  "title":"Deste Foundation"
+               },
+               {
+                  "ns":0,
+                  "title":"Dimitsana Open-air Water Power Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Dispilio Lakeside Neolithic Settlement Archaeological Collection"
+               },
+               {
+                  "ns":0,
+                  "title":"Distomo Archaeological Collection"
+               },
+               {
+                  "ns":0,
+                  "title":"Drama (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Drossinis Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"East Attica"
+               },
+               {
+                  "ns":0,
+                  "title":"East Macedonia and Thrace"
+               },
+               {
+                  "ns":0,
+                  "title":"Ecclesiastic Museum of Aghia Marina"
+               },
+               {
+                  "ns":0,
+                  "title":"Ecclesiastical Museum (Edessa)"
+               },
+               {
+                  "ns":0,
+                  "title":"Ecclesiastical Museum (Serres)"
+               },
+               {
+                  "ns":0,
+                  "title":"Ecclesiastical Museum of Siatista"
+               },
+               {
+                  "ns":0,
+                  "title":"Electric Railways Museum of Piraeus"
+               },
+               {
+                  "ns":0,
+                  "title":"Eleftherios Venizelos Historical Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Eleftherios Venizelos Museum of Chalepa"
+               },
+               {
+                  "ns":0,
+                  "title":"Elis (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Epigraphical Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Epirus (region)"
+               },
+               {
+                  "ns":0,
+                  "title":"Ethnographic Museum of Kaletzi"
+               },
+               {
+                  "ns":0,
+                  "title":"Ethnographic Museum of Lefkasio"
+               },
+               {
+                  "ns":0,
+                  "title":"Ethnographic Museum of Milees"
+               },
+               {
+                  "ns":0,
+                  "title":"Ethnographic Museum of Pyrsoghianni"
+               },
+               {
+                  "ns":0,
+                  "title":"Ethnographic Museum of the Ioannina University"
+               },
+               {
+                  "ns":0,
+                  "title":"Euboea (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Evgenidio Foundation"
+               },
+               {
+                  "ns":0,
+                  "title":"Evros (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Fiscardo"
+               },
+               {
+                  "ns":0,
+                  "title":"Fissini Street Archeological Collection"
+               },
+               {
+                  "ns":0,
+                  "title":"Florina (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Florina Museum of Modern Art"
+               },
+               {
+                  "ns":0,
+                  "title":"Folk Art Museum of Acharnes"
+               },
+               {
+                  "ns":0,
+                  "title":"Folk Art Museum of Epirus - \"Kostas Frontzos\""
+               },
+               {
+                  "ns":0,
+                  "title":"Folk Art Museum of Patras"
+               },
+               {
+                  "ns":0,
+                  "title":"Folk Art and Ethnological Museum of Macedonia and Thrace"
+               },
+               {
+                  "ns":0,
+                  "title":"Folk Art and History Museum of Pilion"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum (Drama)"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum (Edessa)"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum (Katerini)"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum (Polygyros)"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum (Yannitsa)"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum of Kastoria"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum of Komotini"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum of Skopelos"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum of Velvendos"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum of the Aristotle Association (Florina)"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum of the Culture Club (Florina)"
+               },
+               {
+                  "ns":0,
+                  "title":"Folklore Museum of the Lyceum of Hellenic Women (Naoussa)"
+               },
+               {
+                  "ns":0,
+                  "title":"Frissiras Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Gaia Center"
+               },
+               {
+                  "ns":0,
+                  "title":"Goulandris Museum of Cycladic Art"
+               },
+               {
+                  "ns":0,
+                  "title":"Goulandris Natural History Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Goulandris Natural History Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Gounaropoulos Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"Greek armored cruiser Georgios Averof"
+               },
+               {
+                  "ns":0,
+                  "title":"Grevena (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Hellenic Children's Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Hellenic Maritime Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Hellenic Museum of Zagora"
+               },
+               {
+                  "ns":0,
+                  "title":"Herakleidon Art Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Heraklion (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Heraklion Archaeological Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Historical - Folklore and Natural History Museum of Kozani"
+               },
+               {
+                  "ns":0,
+                  "title":"Historical Museum of Crete"
+               },
+               {
+                  "ns":0,
+                  "title":"Historical Museum of Ioannina"
+               },
+               {
+                  "ns":0,
+                  "title":"Historical Museum of The Aghia Lavra Monastery"
+               },
+               {
+                  "ns":0,
+                  "title":"Historical Museum of the Balkan Wars"
+               },
+               {
+                  "ns":0,
+                  "title":"Historical and Folklore Museum of Corinth"
+               },
+               {
+                  "ns":0,
+                  "title":"Historical and Folklore Museum of Rethymno"
+               },
+               {
+                  "ns":0,
+                  "title":"History and Folklore Museum (Arnaia)"
+               },
+               {
+                  "ns":0,
+                  "title":"Ikaria (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Ilias Lalaounis Jewelry Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Imathia"
+               },
+               {
+                  "ns":0,
+                  "title":"Ioannina (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Ionian Islands"
+               },
+               {
+                  "ns":0,
+                  "title":"Islands (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Ithaca"
+               },
+               {
+                  "ns":0,
+                  "title":"Jewish Museum of Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"Jewish Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Kalymnos (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Kapodistrias Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Karpathos (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Kastoria (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Kavala (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Kea-Kythnos"
+               },
+               {
+                  "ns":0,
+                  "title":"Kerameikos"
+               },
+               {
+                  "ns":0,
+                  "title":"Kilkis (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Kitsos Makris Folklore Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Kos (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Kozani (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Laconia"
+               },
+               {
+                  "ns":0,
+                  "title":"Larissa (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Lasithi"
+               },
+               {
+                  "ns":0,
+                  "title":"Lefkada (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Lemnos (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Lesbos"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Abkhazia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Albania"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Andorra"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Armenia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Austria"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Azerbaijan"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Belarus"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Belgium"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Bosnia and Herzegovina"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Bulgaria"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Croatia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Cyprus"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Denmark"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in England"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Estonia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Europe"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in European Union"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Finland"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in France"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Georgia (country)"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Germany"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Gibraltar"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Guernsey"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Hungary"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Iceland"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Italy"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Jersey"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Kazakhstan"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Kosovo"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Latvia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Liechtenstein"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Lithuania"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Luxembourg"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Malta"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Moldova"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Monaco"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Montenegro"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Nagorno-Karabakh"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Northern Cyprus"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Northern Ireland"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Norway"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Poland"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Portugal"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Romania"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Russia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in San Marino"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Scotland"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Serbia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Slovakia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Slovenia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in South Ossetia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Sovereign Military Order of Malta"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Spain"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Svalbard"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Sweden"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Switzerland"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Transnistria"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Turkey"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Ukraine"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Vatican City"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in Wales"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the Czech Republic"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the European Union"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the Faroe Islands"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the Isle of Man"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the Netherlands"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the Republic of Ireland"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the Republic of Macedonia"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in the United Kingdom"
+               },
+               {
+                  "ns":0,
+                  "title":"List of museums in \u00c5land"
+               },
+               {
+                  "ns":0,
+                  "title":"List of states with limited recognition"
+               },
+               {
+                  "ns":0,
+                  "title":"Lychnostatis Open Air Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Macedonian Folklore Museum (Goumenissa)"
+               },
+               {
+                  "ns":0,
+                  "title":"Macedonian Museum of Contemporary Art"
+               },
+               {
+                  "ns":0,
+                  "title":"Magnesia (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Marika Kotopouli Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Maritime Museum of Crete"
+               },
+               {
+                  "ns":0,
+                  "title":"Melina Merkouri Cultural Center"
+               },
+               {
+                  "ns":0,
+                  "title":"Messenia"
+               },
+               {
+                  "ns":0,
+                  "title":"Mihalis Tsartsidis Folklore and History Museum (Sidirokastro)"
+               },
+               {
+                  "ns":0,
+                  "title":"Milos (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Mineralogical Museum of Lavrion"
+               },
+               {
+                  "ns":0,
+                  "title":"Mon Repos, Corfu"
+               },
+               {
+                  "ns":0,
+                  "title":"Monuments Museum (Kastoria)"
+               },
+               {
+                  "ns":0,
+                  "title":"Municipal Art Gallery of Ioannina"
+               },
+               {
+                  "ns":0,
+                  "title":"Municipal Art Gallery of Piraeus"
+               },
+               {
+                  "ns":0,
+                  "title":"Municipal Art Gallery of Volos"
+               },
+               {
+                  "ns":0,
+                  "title":"Municipal Ethnographic Museum of Ioannina"
+               },
+               {
+                  "ns":0,
+                  "title":"Municipal Gallery \"L.Kanakakis\""
+               },
+               {
+                  "ns":0,
+                  "title":"Municipal Gallery of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"Municipal Museum (Grevena)"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum for the Macedonian Struggle (Thessaloniki)"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Ancient Greek, Byzantine and Post-Byzantine Instruments"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Ancient Greek Technology"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Anthropology, University of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Arts and Sciences of Epirus"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Asian art of Corfu"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Byzantine Culture"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Children's Art in Plaka"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Cretan Ethnology"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Engravings and Graphic Arts"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Folklore and History (Drosopigi)"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Geology and Paleontology of the Athens University"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Greek Folk Art"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Modern Local History of Kozani"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of National Resistance"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Pavlos and Alexandra Kanellopoulou"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Photography Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Plaster Casts (Thessaloniki)"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Popular Music Instruments"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Sea Life at Rethymno"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of Visual Arts"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Aristotle University of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Battle of Crete"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Battle of Lahanas"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Center for the Acropolis Studies"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the City of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Cultural Foundation of the Greek Diaspora"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Foundation for the Epirotic Studies"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the History of the Greek Costume"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the History of the Holy City of Mesolongi"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Macedonian Art Society"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Monastery of Agia Triada Tsangarolon"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Monastery of Arkadi"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Monastery of Chryssopighi"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Monastery of Gonia"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Monastery of Preveli"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the National Center of Maps & Cartographic Heritage"
+               },
+               {
+                  "ns":0,
+                  "title":"Museum of the Sacrifice of the People of Kalavryta"
+               },
+               {
+                  "ns":0,
+                  "title":"Music Museum of Macedonia"
+               },
+               {
+                  "ns":0,
+                  "title":"Mykonos"
+               },
+               {
+                  "ns":0,
+                  "title":"Mykonos Folklore Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"National Archaeological Museum of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"National Bank Museum of the Cultural Center of Northern Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"National Glyptotheque"
+               },
+               {
+                  "ns":0,
+                  "title":"National Historical Museum of Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"National Museum of Contemporary Art, Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"Natural History Museum (Paranesti)"
+               },
+               {
+                  "ns":0,
+                  "title":"Natural History Museum (Thessaloniki)"
+               },
+               {
+                  "ns":0,
+                  "title":"Natural History Museum of the Lesvos Petrified Forest"
+               },
+               {
+                  "ns":0,
+                  "title":"Naxos (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Nikos Kazantzakis Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"North Aegean"
+               },
+               {
+                  "ns":0,
+                  "title":"North Athens (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Numismatic Museum of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"OTE Museum of Telecommunications"
+               },
+               {
+                  "ns":0,
+                  "title":"Old Acropolis Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Olive and Oil Museum (Eleochori)"
+               },
+               {
+                  "ns":0,
+                  "title":"Paleontological Museum of Siatista"
+               },
+               {
+                  "ns":0,
+                  "title":"Paleontological and Historical Museum of Ptolemais"
+               },
+               {
+                  "ns":0,
+                  "title":"Panos Aravantinos Decor Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Papadiamantis House Museum of Skiathos"
+               },
+               {
+                  "ns":0,
+                  "title":"Paros (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Pavlos Vrellis Museum of Hellenic History"
+               },
+               {
+                  "ns":0,
+                  "title":"Paxinou-Minotis Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Pella (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Peloponnese (region)"
+               },
+               {
+                  "ns":0,
+                  "title":"Philharmonic Society of Corfu"
+               },
+               {
+                  "ns":0,
+                  "title":"Phocis"
+               },
+               {
+                  "ns":0,
+                  "title":"Photographic Center of Skopelos"
+               },
+               {
+                  "ns":0,
+                  "title":"Phthiotis"
+               },
+               {
+                  "ns":0,
+                  "title":"Pieria (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Pieridis Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Piraeus (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Plaster Casts Museum of the Aristotle University of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Popular Art Museum of Chalandritsa"
+               },
+               {
+                  "ns":0,
+                  "title":"Postal & Philatelic Museum of Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"Prehistoric Antiquities Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Preveza (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Railway Museum of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"Railway Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Regional units of Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"Rethymno (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Rhodes (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Rhodope (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Samos"
+               },
+               {
+                  "ns":0,
+                  "title":"Sarakatsani Folklore Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"School Life Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Serbian Museum of Corfu"
+               },
+               {
+                  "ns":0,
+                  "title":"Serres (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"South Aegean"
+               },
+               {
+                  "ns":0,
+                  "title":"South Athens (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Sovereign state"
+               },
+               {
+                  "ns":0,
+                  "title":"Spathario Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Spetses Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Sporades"
+               },
+               {
+                  "ns":0,
+                  "title":"Sports Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Stoa of Attalos"
+               },
+               {
+                  "ns":0,
+                  "title":"Syntagma Metro Station Archaeological Collection"
+               },
+               {
+                  "ns":0,
+                  "title":"Syros"
+               },
+               {
+                  "ns":0,
+                  "title":"Tactual Museum of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"Technopolis (Gazi)"
+               },
+               {
+                  "ns":0,
+                  "title":"Thasos"
+               },
+               {
+                  "ns":0,
+                  "title":"The Florina Art Gallery (Florina)"
+               },
+               {
+                  "ns":0,
+                  "title":"The Frantzeskaki Collection"
+               },
+               {
+                  "ns":0,
+                  "title":"The N. Chatzikiriakos-Gkikas Art Gallery"
+               },
+               {
+                  "ns":0,
+                  "title":"Theatrical Museum of Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"Theofilos Museum of Anakasia"
+               },
+               {
+                  "ns":0,
+                  "title":"Thesprotia"
+               },
+               {
+                  "ns":0,
+                  "title":"Thessaloniki (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Thessaloniki Olympic Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Thessaloniki Science Center and Technology Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Thessaly"
+               },
+               {
+                  "ns":0,
+                  "title":"Thessaly Railway Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Thira (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Tinos"
+               },
+               {
+                  "ns":0,
+                  "title":"Tositsa Baron Museum of Metsovo"
+               },
+               {
+                  "ns":0,
+                  "title":"Vergina"
+               },
+               {
+                  "ns":0,
+                  "title":"Vorres Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"War Museum of Chania"
+               },
+               {
+                  "ns":0,
+                  "title":"War Museum of Kalpaki"
+               },
+               {
+                  "ns":0,
+                  "title":"War Museum of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Water Supply Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"West Attica"
+               },
+               {
+                  "ns":0,
+                  "title":"West Greece"
+               },
+               {
+                  "ns":0,
+                  "title":"West Macedonia"
+               },
+               {
+                  "ns":0,
+                  "title":"White Tower of Thessaloniki"
+               },
+               {
+                  "ns":0,
+                  "title":"Wine and Vine Museum (Naoussa)"
+               },
+               {
+                  "ns":0,
+                  "title":"Xanthi (regional unit)"
+               },
+               {
+                  "ns":0,
+                  "title":"Yiannis Tsarouchis Foundation Museum"
+               },
+               {
+                  "ns":0,
+                  "title":"Zakynthos"
+               },
+               {
+                  "ns":0,
+                  "title":"Zoological Museum of the Patras University"
+               },
+               {
+                  "ns":0,
+                  "title":"Zoological Museum of the University of Athens"
+               },
+               {
+                  "ns":0,
+                  "title":"Zoumboulaki Gallery"
+               },
+               {
+                  "ns":0,
+                  "title":"Zygomalas Museum"
+               },
+               {
+                  "ns":4,
+                  "title":"Wikipedia:Citation needed"
+               },
+               {
+                  "ns":10,
+                  "title":"Template:Europe topic"
+               },
+               {
+                  "ns":11,
+                  "title":"Template talk:Europe topic"
+               },
+               {
+                  "ns":14,
+                  "title":"Category:Articles with unsourced statements from December 2012"
+               }
+            ]
+         }
+      }
+   }
+}
