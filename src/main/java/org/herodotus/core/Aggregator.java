@@ -2,7 +2,6 @@ package org.herodotus.core;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +27,9 @@ public class Aggregator {
 		
 		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
 		List<Page> pageList = pageSemantics(url);
+		IndexerImpl indexer = new IndexerImpl();
+		indexer.index(pageList);
 		
-		
-		for(Page page:pageList)
-			System.out.println(page.toString());
 	}
 	
 	
@@ -75,7 +73,12 @@ public class Aggregator {
 			}
 			
 			//save page to list
-			Page page = new Page(pageInfo.getId(),museumTitle,firstParagraph,categoriesList,outLinksList);
+			Page page = new Page();
+			page.setId(pageInfo.getId());
+			page.setTitle(museumTitle);
+			page.setContent(firstParagraph);
+			page.setOutlinks(outLinksList);
+			page.setCategories(categoriesList);
 			pageList.add(page);
 		}
 		return pageList;
