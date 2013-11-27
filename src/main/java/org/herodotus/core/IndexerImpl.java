@@ -31,7 +31,7 @@ public class IndexerImpl implements Indexer {
 			
 			try {
 				jsonPage = mapper.writeValueAsString(page);
-				System.out.println(jsonPage);
+				//System.out.println(jsonPage);
 			} catch (JsonGenerationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
