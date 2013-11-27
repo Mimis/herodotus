@@ -88,8 +88,12 @@ public class Aggregator {
 		String pageUrl = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + title.replaceAll("\\s", "_");
 		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
 		String firstParagraph = getPageFirstParagraphMediaWiki(pageJsonBytes,"pageid");
-		Document doc = Jsoup.parse(firstParagraph);
-		return doc.text();
+		if(firstParagraph!=null){
+			Document doc = Jsoup.parse(firstParagraph);
+			return doc.text();
+		}
+		else
+			return null;
 		
 	}
 	
