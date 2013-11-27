@@ -43,10 +43,10 @@ public class Aggregator {
 		byte[] jsonBytes = Helper.getUrl(url).getBytes();
 		List<Link> museumsTitleList = getLinksAttr(jsonBytes,"links");
 				
-		
+		int c=0;
 		for(Link museumLink:museumsTitleList){
 			String  museumTitle = museumLink.getTitle();
-			
+			System.out.println(c++ + "museumTitle:"+museumTitle);
 			//get page info
 			PageInfo pageInfo = getPageInfo(museumTitle);
 
@@ -66,8 +66,8 @@ public class Aggregator {
 			/*
 			 * filter invalid pages
 			 */
-			if(!isValidPage(museumTitle, categoriesList)){
-				System.out.println("INVALIDE:"+museumTitle);
+			if(!isValidPage(museumTitle, categoriesList) || pageInfo == null){
+				System.out.print("\tINVALIDE:"+museumTitle);
 				System.out.println("\tcategoriesList:"+categoriesList.toString());
 				continue;
 			}
