@@ -25,19 +25,16 @@ public class Aggregator {
 
 	public static void main(String[] args) throws IOException {
 		
-		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
-		List<Page> pageList = pageSemantics(url);
+		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=15&format=json";
+		Aggregator aggregator = new Aggregator();
+		List<Page> pageList = aggregator.pageSemantics(url);
 		IndexerImpl indexer = new IndexerImpl();
 		indexer.index(pageList);
 		
 	}
 	
 	
-	
-	
-	
-	
-	public static List<Page> pageSemantics(String url) throws IOException,JsonParseException, JsonMappingException {
+	public List<Page> pageSemantics(String url) throws IOException,JsonParseException, JsonMappingException {
 		List<Page> pageList = new ArrayList<Page>();
 		
 		byte[] jsonBytes = Helper.getUrl(url).getBytes();
@@ -67,7 +64,7 @@ public class Aggregator {
 			 * filter invalid pages
 			 */
 			if(!isValidPage(museumTitle, categoriesList) || pageInfo == null){
-				System.out.print("\tINVALIDE:"+museumTitle);
+				System.out.print("\tINVALID:"+museumTitle);
 				System.out.println("\tcategoriesList:"+categoriesList.toString());
 				continue;
 			}
@@ -84,7 +81,7 @@ public class Aggregator {
 		return pageList;
 	}
 
-	public static String getPageFirstParagraph(String title) throws IOException{
+	private String getPageFirstParagraph(String title) throws IOException{
 		String pageUrl = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + title.replaceAll("\\s", "_");
 		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
 		String firstParagraph = getPageFirstParagraphMediaWiki(pageJsonBytes,"pageid");
@@ -97,7 +94,7 @@ public class Aggregator {
 		
 	}
 	
-	public static String getPageFirstParagraphMediaWiki(byte[] pageJsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
+	private String getPageFirstParagraphMediaWiki(byte[] pageJsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
 		JsonNode parse = rootNode.get("parse");
@@ -112,14 +109,14 @@ public class Aggregator {
 	}
 
 	
-	public static PageInfo getPageInfo(String title) throws IOException{
+	private PageInfo getPageInfo(String title) throws IOException{
 		String pageUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + title.replaceAll("\\s", "_") + "&prop=info&format=json";
 		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
 		PageInfo pageInfo = readPageInfoMediaWiki(pageJsonBytes,"pageid");
 		return pageInfo;
 	}
 	
-	public static PageInfo readPageInfoMediaWiki(byte[] pageJsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
+	private PageInfo readPageInfoMediaWiki(byte[] pageJsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
 		JsonNode query = rootNode.get("query");
@@ -137,10 +134,7 @@ public class Aggregator {
 		return null;
 	}
 	
-	
-	
-	
-	public static boolean isValidPage(String title,List<Link> categoriesList){
+	private boolean isValidPage(String title,List<Link> categoriesList){
 		if(title.startsWith("List of"))
 			return false;
 
@@ -156,7 +150,8 @@ public class Aggregator {
 		}
 		return false;
 	}
-	public static Map<String,Integer> countDf(List<String> semanticslist,Map<String,Integer> dfMap){
+	
+	private Map<String,Integer> countDf(List<String> semanticslist,Map<String,Integer> dfMap){
 		for(String semantic : semanticslist){
 			Integer sem = dfMap.get(semantic);
 			if(sem != null)
@@ -167,7 +162,7 @@ public class Aggregator {
 		return dfMap;
 	}
 	
-	public static List<Link> getLinksAttr(byte[] jsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
+	private List<Link> getLinksAttr(byte[] jsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
 		// String input = The JSON data from your question
 		List<Link> linksList = new ArrayList<Link>();
 		ObjectMapper mapper = new ObjectMapper();
