@@ -20,7 +20,7 @@ public class IndexerImpl implements Indexer {
 	@Override
 	public void index(List<Page> pages) {
 		
-		Node node = nodeBuilder().node();
+		Node node = nodeBuilder().client(true).node();
 		Client client = node.client();
 
 		ObjectMapper mapper = new ObjectMapper(); // Spring injection...

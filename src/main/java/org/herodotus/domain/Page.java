@@ -14,10 +14,6 @@ public class Page {
 	
 	private List<Link> outlinks;
 
-	
-	
-	
-
 	public String getTitle() {
 		return title;
 	}
