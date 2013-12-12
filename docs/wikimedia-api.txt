@@ -27,3 +27,6 @@ http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bltitle=Acropolis%
 
 // Format JSON
 http://en.wikipedia.org/w/api.php?action=query&format=json&list=backlinks&bltitle=Acropolis%20Museum&bllimit=5&blfilterredir=nonredirects
+
+// Infobox
+http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&titles=Acropolis%20Museum
