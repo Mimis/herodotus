@@ -25,7 +25,7 @@ public class Aggregator {
 
 	public static void main(String[] args) throws IOException {
 		
-		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=15&format=json";
+		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=50&format=json";
 		Aggregator aggregator = new Aggregator();
 		List<Page> pageList = aggregator.pageSemantics(url);
 		IndexerImpl indexer = new IndexerImpl();

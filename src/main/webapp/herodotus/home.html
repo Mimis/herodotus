@@ -113,58 +113,67 @@
 <div class="row">
 	<div class="col-md-offset-3 col-lg-6">
 		<form class="form-search" ng-submit="search()">
-			<input ng-model="queryTerm" type="text"
-				class="form-control"
-				placeholder="Search Museums (Location, Category)"> <br />
-			<br />
-			<br />
-			<br />
-			<br />
+			<input ng-model="queryTerm" type="text" class="form-control"
+				placeholder="Search Museums (Location, Category)"> <br /> <br />
 			<br />
 		</form>
 	</div>
 </div>
 
+<div class="row">
+	<div data-ng-repeat="museum in museums" class="col-md-offset-2 col-lg-8 thumbnail" size-column>
+		<h3><a href="#">{{museum.fields.title}}</a></h3>
+		<p>{{museum.fields.content}}</p>
+		<b>categories</b>
+		<div data-ng-repeat="category in museum.fields.categories">
+			<p>{{category.title}}</p>
+		</div>
+		<b>outlinks</b>
+		<div data-ng-repeat="outlink in museum.fields.outlinks">
+			<p>{{outlink.title}}</p>
+		</div>
+	</div>
+</div>
 
 <div class="container marketing">
 
-		<!-- Three columns of text below the carousel -->
-		<div class="row">
-			<div class="col-lg-4">
-				<img class="img-circle" width="140" height="140"
-					src="img/acro-room.jpg" alt="Generic placeholder image">
+	<!-- Three columns of text below the carousel -->
+	<div class="row">
+		<div class="col-lg-4">
+			<img class="img-circle" width="140" height="140"
+				src="img/acro-room.jpg" alt="Generic placeholder image">
 
-				<h2>Athens</h2>
-				<p>Athens caltural description</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">Show Museums</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-			<div class="col-lg-4">
-				<img class="img-circle" width="140" height="140"
-					src="img/joconda.jpeg" alt="Generic placeholder image">
-				<h2>Paris</h2>
-				<p>Paris caltural description</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">Show Museums</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
-			<div class="col-lg-4">
-				<img class="img-circle" width="140" height="140"
-					src="img/british-egypt.jpeg" alt="Generic placeholder image">
-
-				<h2>London</h2>
-				<p>London caltural description</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">Show Museums</a>
-				</p>
-			</div>
-			<!-- /.col-lg-4 -->
+			<h2>Athens</h2>
+			<p>Athens caltural description</p>
+			<p>
+				<a class="btn btn-default" href="#" role="button">Show Museums</a>
+			</p>
 		</div>
-		<!-- /.row -->
+		<!-- /.col-lg-4 -->
+		<div class="col-lg-4">
+			<img class="img-circle" width="140" height="140"
+				src="img/joconda.jpeg" alt="Generic placeholder image">
+			<h2>Paris</h2>
+			<p>Paris caltural description</p>
+			<p>
+				<a class="btn btn-default" href="#" role="button">Show Museums</a>
+			</p>
+		</div>
+		<!-- /.col-lg-4 -->
+		<div class="col-lg-4">
+			<img class="img-circle" width="140" height="140"
+				src="img/british-egypt.jpeg" alt="Generic placeholder image">
 
-		
+			<h2>London</h2>
+			<p>London caltural description</p>
+			<p>
+				<a class="btn btn-default" href="#" role="button">Show Museums</a>
+			</p>
+		</div>
+		<!-- /.col-lg-4 -->
+	</div>
+	<!-- /.row -->
+
+
 
 </div>
