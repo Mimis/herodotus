@@ -1,6 +1,8 @@
 # search index
-http://localhost:9200/herodotus/page/_search?q=title:Veria&pretty=true
+http://localhost:9200/herodotus/page/_search?q=page.title:Veria&pretty=true
 
+# search nested field
+http://localhost:9200/herodotus/page/_search?q=page.categories.title:athens&pretty=true
 
 # delete index
 curl -XDELETE 'http://localhost:9200/herodotus'
