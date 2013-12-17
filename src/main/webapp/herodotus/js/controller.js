@@ -14,28 +14,22 @@ searchApp.controller('Herodotus', function ($scope, ejsResource) {
     // define our search function that will be called when a user
     // submits a search
     $scope.search = function() {
-    	console.log($scope.queryTerm);
-    	
-    	testQuery = ejs.MatchQuery('_all', $scope.queryTerm).toString();
-    	console.log(testQuery);
-    	
+    	    	
         $scope.results = request
         .query(ejs.QueryStringQuery($scope.queryTerm || '*'))
-//    	.query(ejs.TermQuery('title', $scope.queryTerm))
-        .query(ejs.MatchAllQuery())
+        .facet(ejs.TermsFacet('title').field('title'))
+        .fields(['id','url','title', 'content', 'categories', 'outlinks','tags'])
 
                 
-            .fields(['id','url','title', 'content', 'categories', 'outlinks'])
-            .doSearch(function (data) {
-            	$scope.museums = data.hits.hits;
-            	$scope.hits = data.hits;
-            	//alert(data.hits.hits[0].fields.title);
-            	//alert(data.toSource());
-            });
+        .doSearch(function (data) {
+           	$scope.museums = data.hits.hits;
+           	$scope.hits = data.hits;
+           	$scope.title_facets = data.facets.title.terms;
+           	//alert(data.hits.hits[0].fields.title);
+          	//alert(data.toSource());
+        });
 
 
-        
-        console.log("length :" + $scope.results.toString());
         $scope.queryTerm = "";
     };
 });

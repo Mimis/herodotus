@@ -123,17 +123,13 @@
 	</div>
 </div>
 
-<div>
-<p>HITS:{{hits.total}}</p>
-
-	<div data-ng-repeat="facet in Title" class="col-md-offset-2 col-lg-8 thumbnail" size-column>
-			<p>title:{{facet.title}}</p>
-	
-	</div>
-
-</div>
 
 <div class="row">
+	<p>HITS:{{hits.total}}</p>
+	
+	<div data-ng-repeat="facet in title_facets" class="col-md-offset-2 col-lg-8 thumbnail" size-column>
+			<p>{{facet.term}}:{{facet.count}}</p>
+	</div>
 	
 	<div data-ng-repeat="museum in museums" class="col-md-offset-2 col-lg-8 thumbnail" size-column>
 	
@@ -159,8 +155,7 @@
 			</div>
 		
 		</div>
-		
-		
+	
 	</div>
 </div>
 
