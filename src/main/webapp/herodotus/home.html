@@ -121,16 +121,30 @@
 
 <div class="row">
 	<div data-ng-repeat="museum in museums" class="col-md-offset-2 col-lg-8 thumbnail" size-column>
-		<h3><a href="#">{{museum.fields.title}}</a></h3>
+		<h3><a href="http://en.wikipedia.org/wiki/{{museum.fields.title}}">{{museum.fields.title}}</a></h3>
+		
+		
+		
+		<p>{{museum.fields.id}}</p>
 		<p>{{museum.fields.content}}</p>
-		<b>categories</b>
-		<div data-ng-repeat="category in museum.fields.categories">
-			<p>{{category.title}}</p>
+		
+		<div class="col-lg-6">
+		
+			<b>categories</b>
+			<div data-ng-repeat="category in museum.fields.categories">
+				<p>{{category.title}}</p>
+			</div>
 		</div>
-		<b>outlinks</b>
-		<div data-ng-repeat="outlink in museum.fields.outlinks">
-			<p>{{outlink.title}}</p>
+		<div class="col-lg-6">
+		
+			<b>outlinks</b>
+			<div data-ng-repeat="outlink in museum.fields.outlinks">
+				<p>{{outlink.title}}</p>
+			</div>
+		
 		</div>
+		
+		
 	</div>
 </div>
 

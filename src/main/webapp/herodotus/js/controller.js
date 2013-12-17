@@ -20,10 +20,10 @@ searchApp.controller('Herodotus', function ($scope, ejsResource) {
         $scope.results = request
             .query(ejs.QueryStringQuery($scope.queryTerm || '*'))
         	//.query(ejs.TermQuery('title', $scope.queryTerm))
-            .fields(['title', 'content', 'categories', 'outlinks'])
+            .fields(['id','title', 'content', 'categories', 'outlinks'])
             .doSearch(function (data) {
             	$scope.museums = data.hits.hits;
-            	alert(data.hits.hits[0].fields.title);
+            	//alert(data.hits.hits[0].fields.title);
             	//alert(data.toSource());
             });
             

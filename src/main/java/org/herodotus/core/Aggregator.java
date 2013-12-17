@@ -44,6 +44,8 @@ public class Aggregator {
 		for(Link museumLink:museumsTitleList){
 			String  museumTitle = museumLink.getTitle();
 			System.out.println(c++ + "museumTitle:"+museumTitle);
+			
+			
 			//get page info
 			PageInfo pageInfo = getPageInfo(museumTitle);
 
@@ -51,8 +53,8 @@ public class Aggregator {
 			String firstParagraph = getPageFirstParagraph(museumTitle);
 			
 			//get page outlinks
-			String pageUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=links&pllimit=500&format=json";
-			byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
+			String pageLinksUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=links&pllimit=500&format=json";
+			byte[] pageJsonBytes = Helper.getUrl(pageLinksUrl).getBytes();
 			List<Link> outLinksList = getLinksAttr(pageJsonBytes,"links");
 			
 			//get page categories
@@ -69,10 +71,17 @@ public class Aggregator {
 				continue;
 			}
 			
+			/*
+			 * original page url
+			 */
+			String pageUrl = "http://en.wikipedia.org/wiki/"+museumTitle.replaceAll("\\s", "_");
+			
+			
 			//save page to list
 			Page page = new Page();
 			page.setId(pageInfo.getId());
 			page.setTitle(museumTitle);
+			page.setUrl(pageUrl);
 			page.setContent(firstParagraph);
 			page.setOutlinks(outLinksList);
 			page.setCategories(categoriesList);

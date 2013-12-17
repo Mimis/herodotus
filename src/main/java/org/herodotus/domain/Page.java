@@ -6,9 +6,12 @@ public class Page {
 
 	private long id;
 
+
 	private String title;
 	
 	private String content;
+
+	private String url;
 	
 	private List<Link> categories;
 	
@@ -16,6 +19,20 @@ public class Page {
 
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/**
+	 * @param url the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public void setTitle(String title) {
@@ -60,8 +77,9 @@ public class Page {
 	@Override
 	public String toString() {
 		return "Page [id=" + id + ", title=" + title + ", content=" + content
-				+ ", categories=" + categories + ", outlinks=" + outlinks + "]";
-	}	
+				+ ", url=" + url + ", categories=" + categories + ", outlinks="
+				+ outlinks + "]";
+	}
 
 	
 }
