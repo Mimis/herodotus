@@ -18,7 +18,7 @@ searchApp.controller('Herodotus', function ($scope, ejsResource) {
         $scope.results = request
         .query(ejs.QueryStringQuery($scope.queryTerm || '*'))
         .facet(ejs.TermsFacet('title').field('title'))
-        .fields(['id','url','title', 'content', 'categories', 'outlinks','tags'])
+        .fields(['id','url','title', 'content', 'categories', 'outlinks'])
 
                 
         .doSearch(function (data) {
