@@ -1,3 +1,5 @@
+
+
 searchApp.controller('Herodotus', function ($scope, ejsResource) {
 	// point to your ElasticSearch server
     var ejs = ejsResource('http://localhost:9200');
@@ -18,15 +20,21 @@ searchApp.controller('Herodotus', function ($scope, ejsResource) {
     	console.log(testQuery);
     	
         $scope.results = request
-            .query(ejs.QueryStringQuery($scope.queryTerm || '*'))
-        	//.query(ejs.TermQuery('title', $scope.queryTerm))
-            .fields(['id','title', 'content', 'categories', 'outlinks'])
+        .query(ejs.QueryStringQuery($scope.queryTerm || '*'))
+//    	.query(ejs.TermQuery('title', $scope.queryTerm))
+        .query(ejs.MatchAllQuery())
+
+                
+            .fields(['id','url','title', 'content', 'categories', 'outlinks'])
             .doSearch(function (data) {
             	$scope.museums = data.hits.hits;
+            	$scope.hits = data.hits;
             	//alert(data.hits.hits[0].fields.title);
             	//alert(data.toSource());
             });
-            
+
+
+        
         console.log("length :" + $scope.results.toString());
         $scope.queryTerm = "";
     };

@@ -1,3 +1,6 @@
+//article coordinates(works only if coords exist out of info box)
+http://en.wikipedia.org/w/api.php?action=query&prop=coordinates&titles=Archaeological_Museum_of_Eretria
+
 // Page info
 http://en.wikipedia.org/w/api.php?action=query&titles=Acropolis%20Museum&prop=info
 
