@@ -31,8 +31,49 @@ public class Aggregator {
 		IndexerImpl indexer = new IndexerImpl();
 		indexer.index(pageList);
 		
+		
+//		aggregator.getDBPedia("Arta Folklore Museum of \"Skoufas\" Association");
+//		System.out.println("aaaaaaa");
+
 	}
 	
+	
+	private boolean getDBPedia(String title) throws IOException{
+		System.out.println(title);
+
+		title = title.replaceAll("\\s", "_");
+		title = title.replaceAll("–", "%E2%80%93");
+
+		String ontology = "point";
+//		String ontology_url = "http://www.w3.org/1999/02/22-rdf-syntax-ns/";
+//		String ontology_url = "http://dbpedia.org/ontology/";
+//		String ontology_url = "http://purl.org/dc/terms/";
+		String ontology_url = "http://www.georss.org/georss/";
+		
+		String pageUrl = "http://dbpedia.org/data/" + title + ".json";
+		System.out.println(pageUrl);
+
+		String content = Helper.getUrl(pageUrl);
+		if(content==null) return false;
+
+		byte[] pageJsonBytes = content.getBytes();
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
+		JsonNode query = rootNode.get("http://dbpedia.org/resource/"+title);		
+		JsonNode pages = query.get(ontology_url+""+ontology);
+		if(pages==null)return false;
+
+		Iterator<JsonNode> pagesNode = pages.getElements();
+		while(pagesNode.hasNext()) {
+			JsonNode pageNode = pagesNode.next();
+			JsonNode valueNode = pageNode.get("value");
+			String value =  valueNode.asText();	
+			System.out.println(value);
+			return true;
+		}
+		return false;
+	}
+
 	
 	public List<Page> pageSemantics(String url) throws IOException,JsonParseException, JsonMappingException {
 		List<Page> pageList = new ArrayList<Page>();
@@ -41,9 +82,15 @@ public class Aggregator {
 		List<Link> museumsTitleList = getLinksAttr(jsonBytes,"links");
 				
 		int c=0;
+		int counter = 0;
 		for(Link museumLink:museumsTitleList){
 			String  museumTitle = museumLink.getTitle();
-			System.out.println(c++ + "museumTitle:"+museumTitle);
+			System.out.println(c++ + " museumTitle:"+museumTitle);
+			
+			//get DBpedia data
+			if(getDBPedia(museumTitle))
+				counter++;
+
 			
 			
 			//get page info
@@ -87,6 +134,7 @@ public class Aggregator {
 			page.setCategories(categoriesList);
 			pageList.add(page);
 		}
+		System.out.println("##Nr of pages with coordinates from DBpedia::"+counter);
 		return pageList;
 	}
 
