@@ -26,7 +26,7 @@ searchApp.controller('Herodotus', function ($scope, ejsResource) {
            	$scope.hits = data.hits;
            	$scope.title_facets = data.facets.title.terms;
            	//alert(data.hits.hits[0].fields.title);
-          	//alert(data.toSource());
+//          	alert(data.facets.toSource());
         });
 
 
