@@ -9,6 +9,13 @@ curl -XPOST localhost:9200/herodotus -H"Content-Type: application/json" -d '{
                 "id" : { 	"store" : "yes",   	"type" : "integer", "index" : "not_analyzed" },
                 "title" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "analyzed" },
                 "content" : { "null_value" : "na",	"store" : "yes",	"type" : "string", "index" : "analyzed" },
+                "url" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
+                "location" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
+                "official_website_url" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
+                "established" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
+                "type" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
+                
+                
                 "categories": {
                     "properties" : {    	
 	                	"title": {"null_value" : "na", "store" : "yes", 	"type": "string", "index": "analyzed"},

@@ -4,8 +4,6 @@ http://localhost:9200/herodotus/page/_search?q=page.title:Veria&pretty=true
 # search index with facets
 http://localhost:9200/herodotus/page/_search?q=page.title:Veria&pretty=true
 
-
-
 # search nested field
 http://localhost:9200/herodotus/page/_search?q=page.categories.title:athens&pretty=true
 
