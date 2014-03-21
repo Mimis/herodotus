@@ -25,7 +25,7 @@ public class Aggregator {
 
 	public static void main(String[] args) throws IOException {
 		
-		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=5&format=json";
 		Aggregator aggregator = new Aggregator();
 		List<Page> pageList = aggregator.pageSemantics(url);
 		IndexerImpl indexer = new IndexerImpl();
@@ -88,10 +88,8 @@ public class Aggregator {
 			System.out.println(c++ + " museumTitle:"+museumTitle);
 			
 			//get DBpedia data
-			if(getDBPedia(museumTitle))
-				counter++;
-
-			
+			//if(getDBPedia(museumTitle))
+			//	counter++;
 			
 			//get page info
 			PageInfo pageInfo = getPageInfo(museumTitle);

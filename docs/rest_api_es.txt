@@ -10,38 +10,3 @@ http://localhost:9200/herodotus/page/_search?q=page.categories.title:athens&pret
 # delete index
 curl -XDELETE 'http://localhost:9200/herodotus'
 
-# create index
-curl -XPOST localhost:9200/herodotus -H"Content-Type: application/json" -d '{
-    "settings" : {
-        "number_of_shards" : 1
-    },
-    "mappings" : {
-        "page" : {
-            "_source" : { "enabled" : true },
-            "properties" : {
-                "id" : { 	"store" : "yes",   	"type" : "integer", "index" : "not_analyzed" },
-                "title" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "analyzed" },
-                "content" : { "null_value" : "na",	"store" : "yes",	"type" : "string", "index" : "analyzed" },
-                "url" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
-                "location" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
-                "official_website_url" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
-                "established" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
-                "type" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
-                
-                
-                "categories": {
-                    "properties" : {    	
-	                	"title": {"null_value" : "na", "store" : "yes", 	"type": "string", "index": "analyzed"},
-	                   	"ns": { "null_value" : "na",   "store" : "yes",   	"type": "string", "index": "analyzed"}
-	                }
-            	},
-                "outlinks": {
-                	"properties": {
-                    	"title": { "null_value" : "na", "store" : "yes",   	"type": "string", "index": "analyzed"},
-                    	"ns": {  "null_value" : "na", "store" : "yes",     	"type": "string", "index": "analyzed"}
-                	}
-            	}
-            }
-        }
-    }
-}'
