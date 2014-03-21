@@ -88,8 +88,8 @@ public class Aggregator {
 			System.out.println(c++ + " museumTitle:"+museumTitle);
 			
 			//get DBpedia data
-			if(getDBPedia(museumTitle))
-				counter++;
+//			if(getDBPedia(museumTitle))
+//				counter++;
 
 			
 			
