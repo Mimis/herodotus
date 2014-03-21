@@ -1,0 +1,6 @@
+How to start
+------------
+1) git pull origin master
+2) bin/elasticsearch -f
+3) mvn clean install jetty:run
+4) localhost/herodotus
