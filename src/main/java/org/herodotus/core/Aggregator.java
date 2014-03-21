@@ -90,7 +90,7 @@ public class Aggregator {
 			//get DBpedia data
 			//if(getDBPedia(museumTitle))
 			//	counter++;
-			
+
 			//get page info
 			PageInfo pageInfo = getPageInfo(museumTitle);
 

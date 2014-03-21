@@ -1,3 +1,6 @@
+//Page Info Box
+http://en.wikipedia.org/w/api.php?action=parse&pageid=16811572&section=0&prop=wikitext
+
 //article coordinates(works only if coords exist out of info box)
 http://en.wikipedia.org/w/api.php?action=query&prop=coordinates&titles=Archaeological_Museum_of_Eretria
 
@@ -33,3 +36,8 @@ http://en.wikipedia.org/w/api.php?action=query&format=json&list=backlinks&bltitl
 
 // Infobox
 http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&titles=Acropolis%20Museum
+
+
+DB pedia
+=====================================================
+ http://dbpedia.org/page/"title"
