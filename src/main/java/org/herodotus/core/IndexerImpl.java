@@ -17,10 +17,9 @@ import org.herodotus.domain.Page;
 
 public class IndexerImpl implements Indexer {
 	
-	public static final String CLUSTER_NAME = "dprapas";
 
 	@Override
-	public void index(List<Page> pages) {
+	public void index(List<Page> pages, String CLUSTER_NAME, String INDEX_NAME, String DOCUMENT_TYPE) {
 		
 		Node node = nodeBuilder().clusterName(CLUSTER_NAME).client(true).node();
 		Client client = node.client();
@@ -46,7 +45,7 @@ public class IndexerImpl implements Indexer {
 			}
 			
 			if(jsonPage != null) {
-				IndexResponse response = client.prepareIndex("herodotus", "page")
+				IndexResponse response = client.prepareIndex(INDEX_NAME, DOCUMENT_TYPE)
 				        .setSource(jsonPage)
 				        .execute()
 				        .actionGet();
@@ -90,7 +89,7 @@ public class IndexerImpl implements Indexer {
 		pages.add(page1);
 		pages.add(page2);
 		
-		indexer.index(pages);
+		indexer.index(pages, "cluster_name","herodotus","page");
 	}
 
 }

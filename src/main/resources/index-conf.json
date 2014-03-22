@@ -10,10 +10,8 @@ curl -XPOST localhost:9200/herodotus -H"Content-Type: application/json" -d '{
                 "title" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "analyzed" },
                 "content" : { "null_value" : "na",	"store" : "yes",	"type" : "string", "index" : "analyzed" },
                 "url" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
-                "language" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
-                
-                "touched" : {"null_value" : "na", 	"store" : "yes",    "type" : "date",  "index" : "not_analyzed" },
-                   
+                "language" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },         
+                "touched" : {"null_value" : "na", 	"store" : "yes",    "type" : "date",  "index" : "not_analyzed" },                   
                 "country" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },
                 "location" : {"null_value" : "na", 	"store" : "yes",    "type" : "geo_point", "index" : "not_analyzed" },
                 "official_website_url" : {"null_value" : "na", 	"store" : "yes",    "type" : "string", "index" : "not_analyzed" },

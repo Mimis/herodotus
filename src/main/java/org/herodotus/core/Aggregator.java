@@ -1,5 +1,7 @@
 package org.herodotus.core;
 
+import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,12 +12,17 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.node.Node;
 import org.herodotus.domain.Link;
+import org.herodotus.domain.Location;
 import org.herodotus.domain.Page;
 import org.herodotus.domain.PageInfo;
 import org.herodotus.util.Helper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  * Hello world!
@@ -27,9 +34,15 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=5&format=json";
+		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=50&format=json";
 		//The country's name
 		String country = "Greece";
+		
+		//ELASTIC SEARCH setting
+		String CLUSTER_NAME = args[0];
+		String INDEX_NAME = "herodotus";
+		String DOCUMENT_TYPE = "page";		
+		Boolean erase_index_at_start = true;
 		//#############################################################
 		
 		
@@ -42,11 +55,13 @@ public class Aggregator {
 		
 		//##########################  MAIN  ##########################
 		Aggregator aggregator = new Aggregator();
+		if(erase_index_at_start)
+			aggregator.eraseindex(CLUSTER_NAME, INDEX_NAME, DOCUMENT_TYPE);
 		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url, country);
 		
 		
 		IndexerImpl indexer = new IndexerImpl();
-		indexer.index(pageList);
+		indexer.index(pageList, CLUSTER_NAME, INDEX_NAME, DOCUMENT_TYPE);
 		
 //		aggregator.getDBPedia("Arta Folklore Museum of \"Skoufas\" Association");
 //		System.out.println("aaaaaaa");
@@ -58,6 +73,15 @@ public class Aggregator {
 		
 	}
 	
+	public void eraseindex(String CLUSTER_NAME, String INDEX_NAME,String DOCUMENT_TYPE){
+		Node node = nodeBuilder().clusterName(CLUSTER_NAME).client(true).node();
+		Client client = node.client();
+		client.prepareDeleteByQuery(INDEX_NAME).
+        setQuery(QueryBuilders.matchAllQuery()).
+        setTypes(DOCUMENT_TYPE).
+        execute().actionGet();
+	}
+
 	
 	
 	public List<Page> pageSemantics(String list_of_museums_from_specific_country_url,String country) throws IOException,JsonParseException, JsonMappingException {
@@ -82,20 +106,23 @@ public class Aggregator {
 			
 			
 			/*
-			 * get page info - ID , LANGUAGE and MODIFICATION DATE
+			 * get page info => ID , LANGUAGE and MODIFICATION DATE
+			 * mediawiki api => {action=query}, {prop=info}
 			 */
-			PageInfo pageInfo = getPageInfo(museumTitle);
+			PageInfo pageInfo1 = getPageInfo(museumTitle);
 
 			
 			
 			
 			/*
-			 * get page first paragraph
+			 * get page info => first paragraph
+			 * mediawiki api => {action=parse}, {prop=text}
 			 */
-			String firstParagraph = getPageFirstParagraph(museumTitle);
+			PageInfo pageInfo2 = getPageInfoFromFirstParagraph(museumTitle);
 			
 			
-			
+				
+
 			
 			//get page outlinks
 			String pageLinksUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=links&pllimit=500&format=json";
@@ -110,7 +137,7 @@ public class Aggregator {
 			/*
 			 * filter invalid pages
 			 */
-			if(!isValidPage(museumTitle, categoriesList) || pageInfo == null){
+			if(!isValidPage(museumTitle, categoriesList) || pageInfo1 == null || pageInfo2 == null){
 				System.out.print("\tINVALID:"+museumTitle);
 				System.out.println("\tcategoriesList:"+categoriesList.toString());
 				continue;
@@ -121,43 +148,81 @@ public class Aggregator {
 			 */
 			String pageUrl = "http://en.wikipedia.org/wiki/"+museumTitle.replaceAll("\\s", "_");
 			
+
 			
-			//save page to list
+			
+			
+//			Location geo = pageInfo2.getLocation();
+//			System.out.println("long:"+geo.getLongitude()+"\tlang:"+geo.getLatitude());
+
+			
+			
+			/*
+			 * save page to list
+			 */
 			Page page = new Page();
-			page.setId(pageInfo.getId());
+			
+			page.setId(pageInfo1.getId());
+			page.setLanguage(pageInfo1.getLanguage());
+			page.setTouched(pageInfo1.getTouched());
+			
+			page.setContent(pageInfo2.getFirst_paragraph());
+			page.setLocation(pageInfo2.getLocation());
+			
 			page.setTitle(museumTitle);
 			page.setUrl(pageUrl);
-			page.setContent(firstParagraph);
 			page.setOutlinks(outLinksList);
 			page.setCategories(categoriesList);
 			page.setCountry(country);
-			page.setLanguage(pageInfo.getLanguage());
-			page.setTouched(pageInfo.getTouched());
 			pageList.add(page);
 		}
-		System.out.println("##Nr of pages with coordinates from DBpedia::"+counter);
+		
+		
+		
+		
+		System.out.println("##Nr of pages with coordinates from DBpedia:"+counter);
+		System.out.println("##Nr of pages with coordinates from Wikimedia first paragraph:"+counter);
 		return pageList;
 	}
 
 	
 	
 	
-	private String getPageFirstParagraph(String title) throws IOException{
+	private PageInfo getPageInfoFromFirstParagraph(String title) throws IOException{
 		String pageUrl = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + title.replaceAll("\\s", "_");
 		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
-		String firstParagraph = readFirstParagraphMediaWiki(pageJsonBytes);
+		String firstParagraph = getFirstParagraphMediaWiki(pageJsonBytes);
 		
 		
 		
 		if(firstParagraph!=null){
 			Document doc = Jsoup.parse(firstParagraph);
-			return doc.text();
+			Location geo_location = getLocationFromFirstParagraph(doc);
+			
+			PageInfo pageInfo = new PageInfo();
+			pageInfo.setFirst_paragraph(doc.text());
+			pageInfo.setLocation(geo_location);
+			
+			return pageInfo;
 		}
 		else
 			return null;
 		
 	}
-	private String readFirstParagraphMediaWiki(byte[] pageJsonBytes) throws JsonParseException, JsonMappingException, IOException{
+	
+	private Location getLocationFromFirstParagraph(Document doc){
+		Elements longitude_elements = doc.getElementsByClass("longitude");
+		Elements latitude_elements = doc.getElementsByClass("latitude");
+		if(longitude_elements.size()==1 && latitude_elements.size()==1){
+			String longitude = longitude_elements.get(0).text();
+			String latitude = latitude_elements.get(0).text();
+			return new Location(longitude,latitude);
+		}
+		else
+			return null;
+	}
+	
+	private String getFirstParagraphMediaWiki(byte[] pageJsonBytes) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
 		JsonNode parse = rootNode.get("parse");
@@ -275,9 +340,9 @@ public class Aggregator {
 	
 
 	/**
-	 * get Id and Language of the wiki page by its title
+	 * get the Id , Language and touched date of a wiki page by its title
 	 * @param title
-	 * @return pageInfo object with the ID and LANGUGE of the wiki page with the given title! 
+	 * @return pageInfo object with the ID, LANGUGE and TOUCHED adte of the wiki page with the given title! 
 	 * @throws IOException
 	 */
 	private PageInfo getPageInfo(String title) throws IOException{
