@@ -72,15 +72,30 @@ public class Aggregator {
 			String  museumTitle = museumLink.getTitle();
 			System.out.println(c++ + " museumTitle:"+museumTitle);
 			
+			
+			
 			//get DBpedia data
 			//if(getDBPedia(museumTitle))
 			//	counter++;
 
-			//get page info - ID and LANGUAGE
+			
+			
+			
+			/*
+			 * get page info - ID , LANGUAGE and MODIFICATION DATE
+			 */
 			PageInfo pageInfo = getPageInfo(museumTitle);
 
-			//get page first paragraph
+			
+			
+			
+			/*
+			 * get page first paragraph
+			 */
 			String firstParagraph = getPageFirstParagraph(museumTitle);
+			
+			
+			
 			
 			//get page outlinks
 			String pageLinksUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=links&pllimit=500&format=json";
@@ -117,16 +132,23 @@ public class Aggregator {
 			page.setCategories(categoriesList);
 			page.setCountry(country);
 			page.setLanguage(pageInfo.getLanguage());
+			page.setTouched(pageInfo.getTouched());
 			pageList.add(page);
 		}
 		System.out.println("##Nr of pages with coordinates from DBpedia::"+counter);
 		return pageList;
 	}
 
+	
+	
+	
 	private String getPageFirstParagraph(String title) throws IOException{
 		String pageUrl = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + title.replaceAll("\\s", "_");
 		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
-		String firstParagraph = getPageFirstParagraphMediaWiki(pageJsonBytes,"pageid");
+		String firstParagraph = readFirstParagraphMediaWiki(pageJsonBytes);
+		
+		
+		
 		if(firstParagraph!=null){
 			Document doc = Jsoup.parse(firstParagraph);
 			return doc.text();
@@ -135,8 +157,7 @@ public class Aggregator {
 			return null;
 		
 	}
-	
-	private String getPageFirstParagraphMediaWiki(byte[] pageJsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
+	private String readFirstParagraphMediaWiki(byte[] pageJsonBytes) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
 		JsonNode parse = rootNode.get("parse");
@@ -150,38 +171,8 @@ public class Aggregator {
 		return value;
 	}
 
-	/**
-	 * get Id and Language of the wiki page by its title
-	 * @param title
-	 * @return pageInfo object with the ID and LANGUGE of the wiki page with the given title! 
-	 * @throws IOException
-	 */
-	private PageInfo getPageInfo(String title) throws IOException{
-		String pageUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + title.replaceAll("\\s", "_") + "&prop=info&format=json";
-		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
-		PageInfo pageInfo = readPageInfoMediaWiki(pageJsonBytes,"pageid","pagelanguage");
-		return pageInfo;
-	}
 	
-	private PageInfo readPageInfoMediaWiki(byte[] pageJsonBytes,String id_attr,String language_attr) throws JsonParseException, JsonMappingException, IOException{
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
-		JsonNode query = rootNode.get("query");
-		JsonNode pages = query.get("pages");
-		Iterator<JsonNode> pagesNode = pages.getElements();
-		while(pagesNode.hasNext()) {
-			JsonNode pageNode = pagesNode.next();
-			JsonNode id_links =  pageNode.get(id_attr);
-			JsonNode language_links =  pageNode.get(language_attr);
-			
-			if(id_links != null){
-				String id = id_links.asText();
-				String language = language_links != null ? language_links.asText() : null; 
-				return new PageInfo(Integer.parseInt(id),language);
-			}
-		}
-		return null;
-	}
+	
 	
 	private boolean isValidPage(String title,List<Link> categoriesList){
 		if(title.startsWith("List of"))
@@ -281,5 +272,46 @@ public class Aggregator {
 		return dfMap;
 	}
 
+	
+
+	/**
+	 * get Id and Language of the wiki page by its title
+	 * @param title
+	 * @return pageInfo object with the ID and LANGUGE of the wiki page with the given title! 
+	 * @throws IOException
+	 */
+	private PageInfo getPageInfo(String title) throws IOException{
+		String pageUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + title.replaceAll("\\s", "_") + "&prop=info&format=json";
+		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
+		PageInfo pageInfo = readPageInfoMediaWiki(pageJsonBytes,"pageid","pagelanguage","touched");
+		return pageInfo;
+	}
+	private PageInfo readPageInfoMediaWiki(byte[] pageJsonBytes,String id_attr,String language_attr,String touched_attr) throws JsonParseException, JsonMappingException, IOException{
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
+		JsonNode query = rootNode.get("query");
+		JsonNode pages = query.get("pages");
+		Iterator<JsonNode> pagesNode = pages.getElements();
+		while(pagesNode.hasNext()) {
+			JsonNode pageNode = pagesNode.next();
+			JsonNode id_links =  pageNode.get(id_attr);
+			JsonNode language_links =  pageNode.get(language_attr);
+			JsonNode touched_links =  pageNode.get(touched_attr);
+			
+			if(id_links != null){
+				String id = id_links.asText();
+				String language = language_links != null ? language_links.asText() : null;
+				String touched = touched_links != null ? touched_links.asText() : null;
+				
+				PageInfo pageInfo = new PageInfo();
+				pageInfo.setId(Long.parseLong(id));
+				pageInfo.setLanguage(language);
+				pageInfo.setTouched(touched);
+				
+				return pageInfo;
+			}
+		}
+		return null;
+	}
 	
 }

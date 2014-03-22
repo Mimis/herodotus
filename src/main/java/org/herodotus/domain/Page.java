@@ -20,7 +20,19 @@ public class Page {
 	
 	private String language;
 	
+	private String touched;
 	
+	
+	
+	
+	public String getTouched() {
+		return touched;
+	}
+
+	public void setTouched(String touched) {
+		this.touched = touched;
+	}
+
 	public String getLanguage() {
 		return language;
 	}
