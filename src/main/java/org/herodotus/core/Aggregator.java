@@ -43,6 +43,8 @@ public class Aggregator {
 		//##########################  MAIN  ##########################
 		Aggregator aggregator = new Aggregator();
 		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url, country);
+		
+		
 		IndexerImpl indexer = new IndexerImpl();
 		indexer.index(pageList);
 		
@@ -74,7 +76,7 @@ public class Aggregator {
 			//if(getDBPedia(museumTitle))
 			//	counter++;
 
-			//get page info
+			//get page info - ID and LANGUAGE
 			PageInfo pageInfo = getPageInfo(museumTitle);
 
 			//get page first paragraph
@@ -114,6 +116,7 @@ public class Aggregator {
 			page.setOutlinks(outLinksList);
 			page.setCategories(categoriesList);
 			page.setCountry(country);
+			page.setLanguage(pageInfo.getLanguage());
 			pageList.add(page);
 		}
 		System.out.println("##Nr of pages with coordinates from DBpedia::"+counter);
@@ -147,15 +150,20 @@ public class Aggregator {
 		return value;
 	}
 
-	
+	/**
+	 * get Id and Language of the wiki page by its title
+	 * @param title
+	 * @return pageInfo object with the ID and LANGUGE of the wiki page with the given title! 
+	 * @throws IOException
+	 */
 	private PageInfo getPageInfo(String title) throws IOException{
 		String pageUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + title.replaceAll("\\s", "_") + "&prop=info&format=json";
 		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
-		PageInfo pageInfo = readPageInfoMediaWiki(pageJsonBytes,"pageid");
+		PageInfo pageInfo = readPageInfoMediaWiki(pageJsonBytes,"pageid","pagelanguage");
 		return pageInfo;
 	}
 	
-	private PageInfo readPageInfoMediaWiki(byte[] pageJsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
+	private PageInfo readPageInfoMediaWiki(byte[] pageJsonBytes,String id_attr,String language_attr) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
 		JsonNode query = rootNode.get("query");
@@ -163,11 +171,13 @@ public class Aggregator {
 		Iterator<JsonNode> pagesNode = pages.getElements();
 		while(pagesNode.hasNext()) {
 			JsonNode pageNode = pagesNode.next();
-			JsonNode links =  pageNode.get(attr);
+			JsonNode id_links =  pageNode.get(id_attr);
+			JsonNode language_links =  pageNode.get(language_attr);
 			
-			if(links != null){
-				String id = links.asText();
-				return new PageInfo(Integer.parseInt(id));
+			if(id_links != null){
+				String id = id_links.asText();
+				String language = language_links != null ? language_links.asText() : null; 
+				return new PageInfo(Integer.parseInt(id),language);
 			}
 		}
 		return null;
