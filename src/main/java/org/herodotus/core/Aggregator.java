@@ -34,7 +34,7 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=50&format=json";
+		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
 		//The country's name
 		String country = "Greece";
 		
@@ -90,8 +90,9 @@ public class Aggregator {
 		byte[] jsonBytes = Helper.getUrl(list_of_museums_from_specific_country_url).getBytes();
 		List<Link> museumsTitleList = getLinksAttr(jsonBytes,"links");
 				
+
+		int counterFirstPageGeoLocations = 0;
 		int c=0;
-		int counter = 0;
 		for(Link museumLink:museumsTitleList){
 			String  museumTitle = museumLink.getTitle();
 			System.out.println(c++ + " museumTitle:"+museumTitle);
@@ -152,8 +153,11 @@ public class Aggregator {
 			
 			
 			
-//			Location geo = pageInfo2.getLocation();
-//			System.out.println("long:"+geo.getLongitude()+"\tlang:"+geo.getLatitude());
+			Location geo = pageInfo2.getLocation();
+			if(geo != null){
+				counterFirstPageGeoLocations++;
+				System.out.println(geo.getLongitude()+"\t"+geo.getLatitude());
+			}
 
 			
 			
@@ -180,8 +184,8 @@ public class Aggregator {
 		
 		
 		
-		System.out.println("##Nr of pages with coordinates from DBpedia:"+counter);
-		System.out.println("##Nr of pages with coordinates from Wikimedia first paragraph:"+counter);
+//		System.out.println("##Nr of pages with coordinates from DBpedia:"+counter);
+		System.out.println("##Nr of pages with coordinates from Wikimedia first paragraph:"+counterFirstPageGeoLocations);
 		return pageList;
 	}
 
@@ -198,6 +202,7 @@ public class Aggregator {
 		if(firstParagraph!=null){
 			Document doc = Jsoup.parse(firstParagraph);
 			Location geo_location = getLocationFromFirstParagraph(doc);
+			
 			
 			PageInfo pageInfo = new PageInfo();
 			pageInfo.setFirst_paragraph(doc.text());
