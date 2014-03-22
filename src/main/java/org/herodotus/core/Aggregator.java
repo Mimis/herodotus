@@ -34,7 +34,7 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=50&format=json";
 		//The country's name
 		String country = "Greece";
 		
