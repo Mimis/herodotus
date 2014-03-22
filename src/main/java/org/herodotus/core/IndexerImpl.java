@@ -16,11 +16,13 @@ import org.herodotus.domain.Link;
 import org.herodotus.domain.Page;
 
 public class IndexerImpl implements Indexer {
+	
+	public static final String CLUSTER_NAME = "dprapas";
 
 	@Override
 	public void index(List<Page> pages) {
 		
-		Node node = nodeBuilder().client(true).node();
+		Node node = nodeBuilder().clusterName(CLUSTER_NAME).client(true).node();
 		Client client = node.client();
 
 		ObjectMapper mapper = new ObjectMapper(); // Spring injection...
