@@ -16,6 +16,17 @@ public class Page {
 	
 	private List<Link> outlinks;
 
+	private String country;
+	
+	
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	public String getTitle() {
 		return title;
 	}

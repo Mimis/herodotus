@@ -25,60 +25,43 @@ public class Aggregator {
 
 	public static void main(String[] args) throws IOException {
 		
-		String url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=5&format=json";
+		//##########################  INPUT  ########################## 
+		//URL with a list of museums from a specific country
+		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=5&format=json";
+		//The country's name
+		String country = "Greece";
+		//#############################################################
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//##########################  MAIN  ##########################
 		Aggregator aggregator = new Aggregator();
-		List<Page> pageList = aggregator.pageSemantics(url);
+		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url, country);
 		IndexerImpl indexer = new IndexerImpl();
 		indexer.index(pageList);
 		
-		
 //		aggregator.getDBPedia("Arta Folklore Museum of \"Skoufas\" Association");
 //		System.out.println("aaaaaaa");
-
-	}
-	
-	
-	private boolean getDBPedia(String title) throws IOException{
-		System.out.println(title);
-
-		title = title.replaceAll("\\s", "_");
-		title = title.replaceAll("–", "%E2%80%93");
-
-		String ontology = "point";
-//		String ontology_url = "http://www.w3.org/1999/02/22-rdf-syntax-ns/";
-//		String ontology_url = "http://dbpedia.org/ontology/";
-//		String ontology_url = "http://purl.org/dc/terms/";
-		String ontology_url = "http://www.georss.org/georss/";
+		//#############################################################
 		
-		String pageUrl = "http://dbpedia.org/data/" + title + ".json";
-		System.out.println(pageUrl);
-
-		String content = Helper.getUrl(pageUrl);
-		if(content==null) return false;
-
-		byte[] pageJsonBytes = content.getBytes();
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
-		JsonNode query = rootNode.get("http://dbpedia.org/resource/"+title);		
-		JsonNode pages = query.get(ontology_url+""+ontology);
-		if(pages==null)return false;
-
-		Iterator<JsonNode> pagesNode = pages.getElements();
-		while(pagesNode.hasNext()) {
-			JsonNode pageNode = pagesNode.next();
-			JsonNode valueNode = pageNode.get("value");
-			String value =  valueNode.asText();	
-			System.out.println(value);
-			return true;
-		}
-		return false;
+		
+		
+		
+		
 	}
-
 	
-	public List<Page> pageSemantics(String url) throws IOException,JsonParseException, JsonMappingException {
+	
+	
+	public List<Page> pageSemantics(String list_of_museums_from_specific_country_url,String country) throws IOException,JsonParseException, JsonMappingException {
 		List<Page> pageList = new ArrayList<Page>();
 		
-		byte[] jsonBytes = Helper.getUrl(url).getBytes();
+		byte[] jsonBytes = Helper.getUrl(list_of_museums_from_specific_country_url).getBytes();
 		List<Link> museumsTitleList = getLinksAttr(jsonBytes,"links");
 				
 		int c=0;
@@ -130,6 +113,7 @@ public class Aggregator {
 			page.setContent(firstParagraph);
 			page.setOutlinks(outLinksList);
 			page.setCategories(categoriesList);
+			page.setCountry(country);
 			pageList.add(page);
 		}
 		System.out.println("##Nr of pages with coordinates from DBpedia::"+counter);
@@ -206,16 +190,6 @@ public class Aggregator {
 		return false;
 	}
 	
-	private Map<String,Integer> countDf(List<String> semanticslist,Map<String,Integer> dfMap){
-		for(String semantic : semanticslist){
-			Integer sem = dfMap.get(semantic);
-			if(sem != null)
-				dfMap.put(semantic, sem+1);
-			else
-				dfMap.put(semantic, 1);
-		}
-		return dfMap;
-	}
 	
 	private List<Link> getLinksAttr(byte[] jsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
 		// String input = The JSON data from your question
@@ -245,6 +219,57 @@ public class Aggregator {
 		}
 		return linksList;
 	}
+
 	
+	
+	
+	private boolean getDBPedia(String title) throws IOException{
+		System.out.println(title);
+
+		title = title.replaceAll("\\s", "_");
+		title = title.replaceAll("–", "%E2%80%93");
+
+		String ontology = "point";
+//		String ontology_url = "http://www.w3.org/1999/02/22-rdf-syntax-ns/";
+//		String ontology_url = "http://dbpedia.org/ontology/";
+//		String ontology_url = "http://purl.org/dc/terms/";
+		String ontology_url = "http://www.georss.org/georss/";
+		
+		String pageUrl = "http://dbpedia.org/data/" + title + ".json";
+		System.out.println(pageUrl);
+
+		String content = Helper.getUrl(pageUrl);
+		if(content==null) return false;
+
+		byte[] pageJsonBytes = content.getBytes();
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
+		JsonNode query = rootNode.get("http://dbpedia.org/resource/"+title);		
+		JsonNode pages = query.get(ontology_url+""+ontology);
+		if(pages==null)return false;
+
+		Iterator<JsonNode> pagesNode = pages.getElements();
+		while(pagesNode.hasNext()) {
+			JsonNode pageNode = pagesNode.next();
+			JsonNode valueNode = pageNode.get("value");
+			String value =  valueNode.asText();	
+			System.out.println(value);
+			return true;
+		}
+		return false;
+	}
+
+
+	private Map<String,Integer> countDf(List<String> semanticslist,Map<String,Integer> dfMap){
+		for(String semantic : semanticslist){
+			Integer sem = dfMap.get(semantic);
+			if(sem != null)
+				dfMap.put(semantic, sem+1);
+			else
+				dfMap.put(semantic, 1);
+		}
+		return dfMap;
+	}
+
 	
 }
