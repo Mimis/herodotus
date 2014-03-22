@@ -1,5 +1,7 @@
 package org.herodotus;
 
+import java.io.UnsupportedEncodingException;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -30,9 +32,10 @@ public class AppTest
 
     /**
      * Rigourous Test :-)
+     * @throws UnsupportedEncodingException 
      */
-    public void testApp()
+    public void testApp() throws UnsupportedEncodingException
     {
-        assertTrue( true );
+    	
     }
 }

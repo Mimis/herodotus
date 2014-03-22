@@ -8,31 +8,48 @@ public class Page {
 
 	private String title;
 	
-	private String content;
+	private String summary;
 
 	private String url;
 	
-	private List<Link> categories;
+	private List<String> categories;
 	
-	private List<Link> outlinks;
+	private List<String> outlinks;
 
 	private String country;
 	
 	private String language;
 	
-	private String touched;
+	private String touched; // date of This page was last modified on
 	
 	
-	private Location location;
+	private GeoLocation geoLocation;
 	
+	private long inLinkCounter;
+
+	private long outLinkCounter;
 	
+	private String photoCollectionUrl;
 	
-	public Location getLocation() {
-		return location;
+	private List<String> locationList;//country,city,street
+
+	private List<String>  thubnailsList;
+
+	private List<String>  typesList;
+
+	
+	private List<String> externalLinkList;
+
+
+	private List<String> websitesList;
+
+	
+	public GeoLocation getGeoLocation() {
+		return geoLocation;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setGeoLocation(GeoLocation geoLocation) {
+		this.geoLocation = geoLocation;
 	}
 
 	public String getTouched() {
@@ -89,28 +106,96 @@ public class Page {
 		this.id = id;
 	}
 
-	public List<Link> getCategories() {
+
+
+	
+	
+	public List<String> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Link> categories) {
+	public void setCategories(List<String> categories) {
 		this.categories = categories;
 	}
 
-	public List<Link> getOutlinks() {
+	public List<String> getOutlinks() {
 		return outlinks;
 	}
 
-	public void setOutlinks(List<Link> outlinks) {
+	public void setOutlinks(List<String> outlinks) {
 		this.outlinks = outlinks;
 	}
 
-	public String getContent() {
-		return content;
+	public String getSummary() {
+		return summary;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public List<String> getLocationList() {
+		return locationList;
+	}
+
+	public void setLocationList(List<String> locationList) {
+		this.locationList = locationList;
+	}
+
+	public List<String> getThubnailsList() {
+		return thubnailsList;
+	}
+
+	public void setThubnailsList(List<String> thubnailsList) {
+		this.thubnailsList = thubnailsList;
+	}
+
+	public List<String> getTypesList() {
+		return typesList;
+	}
+
+	public void setTypesList(List<String> typesList) {
+		this.typesList = typesList;
+	}
+
+	public List<String> getExternalLinkList() {
+		return externalLinkList;
+	}
+
+	public void setExternalLinkList(List<String> externalLinkList) {
+		this.externalLinkList = externalLinkList;
+	}
+
+	public long getInLinkCounter() {
+		return inLinkCounter;
+	}
+
+	public void setInLinkCounter(long inLinkCounter) {
+		this.inLinkCounter = inLinkCounter;
+	}
+
+	public long getOutLinkCounter() {
+		return outLinkCounter;
+	}
+
+	public void setOutLinkCounter(long outLinkCounter) {
+		this.outLinkCounter = outLinkCounter;
+	}
+
+	public String getPhotoCollectionUrl() {
+		return photoCollectionUrl;
+	}
+
+	public void setPhotoCollectionUrl(String photoCollectionUrl) {
+		this.photoCollectionUrl = photoCollectionUrl;
+	}
+
+	public List<String> getWebsitesList() {
+		return websitesList;
+	}
+
+	public void setWebsitesList(List<String> websitesList) {
+		this.websitesList = websitesList;
 	}
 
 	/* (non-Javadoc)
@@ -118,7 +203,7 @@ public class Page {
 	 */
 	@Override
 	public String toString() {
-		return "Page [id=" + id + ", title=" + title + ", content=" + content
+		return "Page [id=" + id + ", title=" + title 
 				+ ", url=" + url + ", categories=" + categories + ", outlinks="
 				+ outlinks + "]";
 	}

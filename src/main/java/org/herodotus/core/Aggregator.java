@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
@@ -15,8 +14,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
+import org.herodotus.domain.GeoLocation;
 import org.herodotus.domain.Link;
-import org.herodotus.domain.Location;
 import org.herodotus.domain.Page;
 import org.herodotus.domain.PageInfo;
 import org.herodotus.util.Helper;
@@ -34,7 +33,7 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=50&format=json";
 		//The country's name
 		String country = "Greece";
 		
@@ -88,20 +87,22 @@ public class Aggregator {
 		List<Page> pageList = new ArrayList<Page>();
 		
 		byte[] jsonBytes = Helper.getUrl(list_of_museums_from_specific_country_url).getBytes();
-		List<Link> museumsTitleList = getLinksAttr(jsonBytes,"links");
+		List<String> museumsTitleList = getLinksAttr(jsonBytes,"links");
 				
 
-		int counterFirstPageGeoLocations = 0;
+		int counter = 0;
 		int c=0;
-		for(Link museumLink:museumsTitleList){
-			String  museumTitle = museumLink.getTitle();
+		for(String museumTitle:museumsTitleList){
 			System.out.println(c++ + " museumTitle:"+museumTitle);
 			
 			
+			if(museumTitle.matches(".*[\"|(].*"))
+				continue;
 			
-			//get DBpedia data
-			//if(getDBPedia(museumTitle))
-			//	counter++;
+			/*
+			 * get DBpedia data
+			 */
+			Page page = getDBPedia(museumTitle);
 
 			
 			
@@ -112,6 +113,8 @@ public class Aggregator {
 			 */
 			PageInfo pageInfo1 = getPageInfo(museumTitle);
 
+			if(pageInfo1==null || page==null)
+				continue;
 			
 			
 			
@@ -119,30 +122,39 @@ public class Aggregator {
 			 * get page info => first paragraph
 			 * mediawiki api => {action=parse}, {prop=text}
 			 */
-			PageInfo pageInfo2 = getPageInfoFromFirstParagraph(museumTitle);
+//			PageInfo pageInfo2 = getPageInfoFromFirstParagraph(museumTitle);
 			
 			
-				
+			
+			
+			
 
-			
-			//get page outlinks
+			/*
+			 * get page outlinks
+			 * 			//TODO the following two functionalities can be done with the action=parse and prop=text 
+			 */
 			String pageLinksUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=links&pllimit=500&format=json";
 			byte[] pageJsonBytes = Helper.getUrl(pageLinksUrl).getBytes();
-			List<Link> outLinksList = getLinksAttr(pageJsonBytes,"links");
+			List<String> outLinksList = getLinksAttr(pageJsonBytes,"links");
+//			/*
+//			 * get page categories
+//			 */
+//			String categoryUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=categories&cllimit=500&format=json";
+//			byte[] categoryJsonBytes = Helper.getUrl(categoryUrl).getBytes();
+//			List<Link> categoriesList = getLinksAttr(categoryJsonBytes,"categories");
 			
-			//get page categories
-			String categoryUrl = "http://en.wikipedia.org/w/api.php?action=query&titles=" + museumTitle.replaceAll("\\s", "_") + "&prop=categories&cllimit=500&format=json";
-			byte[] categoryJsonBytes = Helper.getUrl(categoryUrl).getBytes();
-			List<Link> categoriesList = getLinksAttr(categoryJsonBytes,"categories");
+			
+			
 			
 			/*
 			 * filter invalid pages
 			 */
-			if(!isValidPage(museumTitle, categoriesList) || pageInfo1 == null || pageInfo2 == null){
-				System.out.print("\tINVALID:"+museumTitle);
-				System.out.println("\tcategoriesList:"+categoriesList.toString());
-				continue;
-			}
+//			if(!isValidPage(museumTitle, categoriesList) || pageInfo1 == null ){
+//				System.out.print("\tINVALID:"+museumTitle);
+//				System.out.println("\tcategoriesList:"+categoriesList.toString());
+//				continue;
+//			}
+			
 			
 			/*
 			 * original page url
@@ -152,31 +164,32 @@ public class Aggregator {
 
 			
 			
-			
-			Location geo = pageInfo2.getLocation();
-			if(geo != null){
-				counterFirstPageGeoLocations++;
-				System.out.println(geo.getLongitude()+"\t"+geo.getLatitude());
+			/*
+			 * COUNT HOW MANY GEOLOCATION WE FIND..
+			 */
+			if(page.getGeoLocation() != null){
+				System.out.println(page.getGeoLocation().toString());
+				counter++;
 			}
-
+			
 			
 			
 			/*
 			 * save page to list
 			 */
-			Page page = new Page();
+//			Page page = new Page();
 			
-			page.setId(pageInfo1.getId());
+//			page.setId(pageInfo1.getId());
 			page.setLanguage(pageInfo1.getLanguage());
 			page.setTouched(pageInfo1.getTouched());
-			
-			page.setContent(pageInfo2.getFirst_paragraph());
-			page.setLocation(pageInfo2.getLocation());
-			
+//			
+////			page.setContent(pageInfo2.getSummary());
+////			page.setGeoLocation(pageInfo2.getGeoLocation());
+//			
 			page.setTitle(museumTitle);
 			page.setUrl(pageUrl);
 			page.setOutlinks(outLinksList);
-			page.setCategories(categoriesList);
+//			page.setCategories(categoriesList);
 			page.setCountry(country);
 			pageList.add(page);
 		}
@@ -184,12 +197,122 @@ public class Aggregator {
 		
 		
 		
-//		System.out.println("##Nr of pages with coordinates from DBpedia:"+counter);
-		System.out.println("##Nr of pages with coordinates from Wikimedia first paragraph:"+counterFirstPageGeoLocations);
+		System.out.println("##Nr of pages with coordinates from DBpedia:"+counter);
 		return pageList;
 	}
 
 	
+	
+	
+	
+	private Page getDBPedia(String title) throws IOException{
+		title = title.replaceAll("\\s", "_");
+		title = title.replaceAll("Ð", "%E2%80%93");
+		String pageUrl = "http://dbpedia.org/data/" + title + ".json";
+		String content = Helper.getUrl(pageUrl);
+		if(content==null) 
+			return null;
+		
+		byte[] pageJsonBytes = content.getBytes();
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
+		JsonNode semanticsNode = rootNode.get("http://dbpedia.org/resource/"+title);		
+
+		if(semanticsNode==null)
+			return null;
+		
+		//GET COORDINATES
+		List<String> longtitude = getSemantic(semanticsNode, "http://www.w3.org/2003/01/geo/wgs84_pos#long", "value",null,null);
+		List<String> langtitude = getSemantic(semanticsNode, "http://www.w3.org/2003/01/geo/wgs84_pos#lat", "value",null,null);
+		
+		
+		//GET SUMMARY
+		List<String> summary = getSemantic(semanticsNode, "http://dbpedia.org/ontology/abstract", "value", "lang","en");
+		
+		
+		//GET LOCATIONS (country,city,street)
+		List<String> locations = getSemantic(semanticsNode, "http://dbpedia.org/ontology/location", "value", null, null);
+		
+		
+		//GET Thubnails
+		List<String> thubnails = getSemantic(semanticsNode, "http://dbpedia.org/ontology/thumbnail", "value", null, null);
+		
+		
+		//GET TYPE 
+		List<String> type = getSemantic(semanticsNode, "http://dbpedia.org/ontology/type", "value", null, null);
+		
+		//GET EXTERNAL LINKS 
+		List<String> wikiPageExternalLink = getSemantic(semanticsNode, "http://dbpedia.org/ontology/wikiPageExternalLink", "value", null, null);
+		
+		//GET PAGE ID 
+		List<String> wikiPageID = getSemantic(semanticsNode, "http://dbpedia.org/ontology/wikiPageID", "value", null, null);
+		
+		
+		
+		//GET PAGE IN LINKS COUNTER
+		List<String> wikiPageInLinksCounter = getSemantic(semanticsNode, "http://dbpedia.org/ontology/wikiPageInLinkCount", "value", null, null);
+		//GET PAGE OUT LINKS COUNTER
+		List<String> wikiPageOutLinksCounter = getSemantic(semanticsNode, "http://dbpedia.org/ontology/wikiPageOutLinkCount", "value", null, null);
+			
+		
+		//GET PAGE photcolection
+		List<String> wikiPagePhotoCollection = getSemantic(semanticsNode, "http://dbpedia.org/property/hasPhotoCollection", "value", null, null);
+		
+		
+		
+		//GET PAGE website
+		List<String> wikiPageWebSite = getSemantic(semanticsNode, "http://dbpedia.org/property/website", "value", null, null);
+		wikiPageWebSite.addAll(getSemantic(semanticsNode, "http://xmlns.com/foaf/0.1/homepage", "value", null, null));
+		
+		
+		
+		//GET PAGE subjects/categories
+		List<String> wikiPageCategories = getSemantic(semanticsNode, "http://purl.org/dc/terms/subject", "value", null, null);
+			
+		
+		
+		Page pageInfo = new Page();
+		if(!longtitude.isEmpty())
+			pageInfo.setGeoLocation(new GeoLocation(Float.parseFloat(longtitude.get(0)), Float.parseFloat(langtitude.get(0))));
+		if(!summary.isEmpty())
+			pageInfo.setSummary(summary.get(0));
+		pageInfo.setLocationList(locations);
+		pageInfo.setThubnailsList(thubnails);
+		pageInfo.setTypesList(type);
+		pageInfo.setExternalLinkList(wikiPageExternalLink);
+		if(!wikiPageID.isEmpty())
+			pageInfo.setId(Long.parseLong(wikiPageID.get(0)));
+		if(!wikiPageInLinksCounter.isEmpty())
+			pageInfo.setInLinkCounter(Long.parseLong(wikiPageInLinksCounter.get(0)));
+		if(!wikiPageOutLinksCounter.isEmpty())
+			pageInfo.setOutLinkCounter(Long.parseLong(wikiPageOutLinksCounter.get(0)));
+		if(!wikiPagePhotoCollection.isEmpty())
+			pageInfo.setPhotoCollectionUrl(wikiPagePhotoCollection.get(0));
+		pageInfo.setWebsitesList(wikiPageWebSite);
+		pageInfo.setCategories(wikiPageCategories);
+		return pageInfo;
+	}
+	
+	private List<String> getSemantic(JsonNode semanticsNode, String ontology_url, String attribute, String condition_attr, String condition_value){
+		List<String> outputList = new ArrayList<String>();
+		JsonNode pages = semanticsNode.get(ontology_url);
+		if(pages==null)
+			return outputList;
+
+		Iterator<JsonNode> pagesNode = pages.getElements();
+		while(pagesNode.hasNext()) {
+			JsonNode pageNode = pagesNode.next();
+			if(condition_attr != null && pageNode.get(condition_attr).asText().equalsIgnoreCase(condition_value)){
+				JsonNode valueNode = pageNode.get(attribute);
+				outputList.add(valueNode.asText());
+				return outputList; 
+			}
+			else if(condition_attr == null){
+				outputList.add(pageNode.get(attribute).asText());
+			}
+		}
+		return outputList;
+	}	
 	
 	
 	private PageInfo getPageInfoFromFirstParagraph(String title) throws IOException{
@@ -201,12 +324,12 @@ public class Aggregator {
 		
 		if(firstParagraph!=null){
 			Document doc = Jsoup.parse(firstParagraph);
-			Location geo_location = getLocationFromFirstParagraph(doc);
+			GeoLocation geo_location = getLocationFromFirstParagraph(doc);
 			
 			
 			PageInfo pageInfo = new PageInfo();
-			pageInfo.setFirst_paragraph(doc.text());
-			pageInfo.setLocation(geo_location);
+			pageInfo.setSummary(doc.text());
+			pageInfo.setGeoLocation(geo_location);
 			
 			return pageInfo;
 		}
@@ -215,13 +338,13 @@ public class Aggregator {
 		
 	}
 	
-	private Location getLocationFromFirstParagraph(Document doc){
+	private GeoLocation getLocationFromFirstParagraph(Document doc){
 		Elements longitude_elements = doc.getElementsByClass("longitude");
 		Elements latitude_elements = doc.getElementsByClass("latitude");
 		if(longitude_elements.size()==1 && latitude_elements.size()==1){
 			String longitude = longitude_elements.get(0).text();
 			String latitude = latitude_elements.get(0).text();
-			return new Location(longitude,latitude);
+			return new GeoLocation(Float.parseFloat(longitude),Float.parseFloat(latitude));
 		}
 		else
 			return null;
@@ -262,9 +385,9 @@ public class Aggregator {
 	}
 	
 	
-	private List<Link> getLinksAttr(byte[] jsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
+	private List<String> getLinksAttr(byte[] jsonBytes,String attr) throws JsonParseException, JsonMappingException, IOException{
 		// String input = The JSON data from your question
-		List<Link> linksList = new ArrayList<Link>();
+		List<String> linksList = new ArrayList<String>();
 		ObjectMapper mapper = new ObjectMapper();
 
 		JsonNode rootNode = mapper.readValue(jsonBytes, JsonNode.class);
@@ -284,7 +407,7 @@ public class Aggregator {
 				while(linkNode.hasNext()) {
 					JsonNode link = linkNode.next();
 					String text = link.get("title").asText().replace("Category:", "");
-					linksList.add(new Link(text));
+					linksList.add(text);
 				}
 			}
 		}
@@ -294,53 +417,6 @@ public class Aggregator {
 	
 	
 	
-	private boolean getDBPedia(String title) throws IOException{
-		System.out.println(title);
-
-		title = title.replaceAll("\\s", "_");
-		title = title.replaceAll("â€“", "%E2%80%93");
-
-		String ontology = "point";
-//		String ontology_url = "http://www.w3.org/1999/02/22-rdf-syntax-ns/";
-//		String ontology_url = "http://dbpedia.org/ontology/";
-//		String ontology_url = "http://purl.org/dc/terms/";
-		String ontology_url = "http://www.georss.org/georss/";
-		
-		String pageUrl = "http://dbpedia.org/data/" + title + ".json";
-		System.out.println(pageUrl);
-
-		String content = Helper.getUrl(pageUrl);
-		if(content==null) return false;
-
-		byte[] pageJsonBytes = content.getBytes();
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode rootNode = mapper.readValue(pageJsonBytes, JsonNode.class);
-		JsonNode query = rootNode.get("http://dbpedia.org/resource/"+title);		
-		JsonNode pages = query.get(ontology_url+""+ontology);
-		if(pages==null)return false;
-
-		Iterator<JsonNode> pagesNode = pages.getElements();
-		while(pagesNode.hasNext()) {
-			JsonNode pageNode = pagesNode.next();
-			JsonNode valueNode = pageNode.get("value");
-			String value =  valueNode.asText();	
-			System.out.println(value);
-			return true;
-		}
-		return false;
-	}
-
-
-	private Map<String,Integer> countDf(List<String> semanticslist,Map<String,Integer> dfMap){
-		for(String semantic : semanticslist){
-			Integer sem = dfMap.get(semantic);
-			if(sem != null)
-				dfMap.put(semantic, sem+1);
-			else
-				dfMap.put(semantic, 1);
-		}
-		return dfMap;
-	}
 
 	
 
