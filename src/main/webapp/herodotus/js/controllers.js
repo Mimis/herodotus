@@ -36,7 +36,7 @@ herodotusControllers.controller('ListCtrl', [ '$scope', '$rootScope',
 	} 
 ]);
 
-
+//EXPLANATION WHY IS CRASHED: http://stackoverflow.com/questions/8081701/i-keep-getting-uncaught-syntaxerror-unexpected-token-o
 herodotusControllers.controller('SearchCtrl', [ '$scope', '$location', '$rootScope', 'es',
     function SearchCtrl($scope, $location, $rootScope, es) {
 		// define our search function that will be called when a user
