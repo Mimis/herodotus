@@ -32,8 +32,11 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
-//		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url_gr = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url_nl = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url_en = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_England&prop=links&pllimit=500&format=json";
+		
+			
 		
 		//The country's name
 		String country = "Greece";
@@ -42,7 +45,7 @@ public class Aggregator {
 		String CLUSTER_NAME = args[0];
 		String INDEX_NAME = "herodotus";
 		String DOCUMENT_TYPE = "page";		
-		Boolean erase_index_at_start = false;
+		Boolean erase_index_at_start = true;
 		//#############################################################
 		
 		
@@ -59,7 +62,7 @@ public class Aggregator {
 			aggregator.eraseindex(CLUSTER_NAME, INDEX_NAME, DOCUMENT_TYPE);
 		
 		
-		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url, country);
+		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url_gr, country);
 		
 		
 		IndexerImpl indexer = new IndexerImpl();
@@ -121,7 +124,7 @@ public class Aggregator {
 			 * Filter invalid pages based on their  or their categories(templates,citaions needed, regions..)
 			 */
 			if( !isValidPage(museumTitle) ){
-				System.out.println("#INVALID page:"+museumTitle);
+				//System.out.println("#INVALID page:"+museumTitle);
 				continue;
 			}
 
@@ -131,13 +134,20 @@ public class Aggregator {
 			 */
 			Page page = getDBPedia(museumTitle);
 			if(page==null ){
-//				System.out.println("\t#ERROR:page IS NULL:"+museumTitle);
+				System.out.println("\t#ERROR:page IS NULL:"+museumTitle);
 				continue;
 			}
 
 
-			
-			
+			/**
+			 * If there is a redirection got there to get the right page info!!!s
+			 */
+			if(page.getRedirectsList()!=null){
+				//System.out.println(museumTitle+"\n\t#Redirects:"+page.getRedirectsList()+"\n\t#size:"+page.getRedirectsList().size()+"\n\t#summary:"+page.getSummary()+"\n\t#size:"+page.getRedirectsList().size());
+				String redirect_url = page.getRedirectsList().get(0);
+				museumTitle = getNewTitleFromRedirectUrl(redirect_url);
+				page = getDBPedia(museumTitle);
+			}
 			
 			
 			/*
@@ -206,14 +216,15 @@ public class Aggregator {
 	
 	
 	
+	
 	private Page getDBPedia(String title) throws IOException{
 		title = title.replaceAll("\\s", "_");
 		// original page url
 		String pageUrl_notEncoded = "http://en.wikipedia.org/wiki/"+title;
 		//encode url
 		title = title.replaceAll("Ð", "%E2%80%93");
-		String pageUrl = "http://dbpedia.org/data/" + title + ".json";
-		String content = Helper.getUrl(pageUrl);
+		String dbpediaUrl = "http://dbpedia.org/data/" + title + ".json";
+		String content = Helper.getUrl(dbpediaUrl);
 		if(content==null){
 			System.out.println("\t#ERROR getUrl:"+title);
 			return null;
@@ -230,7 +241,8 @@ public class Aggregator {
 		}
 		
 		
-		
+		//GET REDIRECTS (@SEE ISSUE #19)
+		List<String> redirects = getSemantic(semanticsNode, "http://dbpedia.org/ontology/wikiPageRedirects", "value",null,null);
 
 		
 		//GET COORDINATES
@@ -285,6 +297,7 @@ public class Aggregator {
 		 * CREATE THE PAGE
 		 */
 		Page page = new Page();
+		page.setDbpedia_url(dbpediaUrl);
 		page.setUrl(pageUrl_notEncoded);
 		if(!longtitude.isEmpty())
 			page.setGeoLocation(new GeoLocation(Float.parseFloat(longtitude.get(0)), Float.parseFloat(langtitude.get(0))));
@@ -304,6 +317,11 @@ public class Aggregator {
 			page.setPhotoCollectionUrl(wikiPagePhotoCollection.get(0));
 		page.setWebsitesList(wikiPageWebSite);
 		page.setCategories(wikiPageCategories);
+		
+		
+		if(!redirects.isEmpty())
+			page.setRedirectsList(redirects);
+
 		return page;
 	}
 	
@@ -329,40 +347,8 @@ public class Aggregator {
 	}	
 	
 	
-	private String getGeoLocationFromFirstParagraph(String title) throws IOException{
-		String pageUrl = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + title.replaceAll("\\s", "_");
-		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
-		String firstParagraph = getFirstParagraphMediaWiki(pageJsonBytes);
-		
-		
-		
-		if(firstParagraph!=null){
-			Document doc = Jsoup.parse(firstParagraph);
-			String geo_location = getLocationFromFirstParagraph(doc);
-			
-			
-			PageInfo pageInfo = new PageInfo();
-			pageInfo.setSummary(doc.text());
-//			pageInfo.setGeoLocation(geo_location);
-			
-			return geo_location;
-		}
-		else
-			return null;
-		
-	}
 	
-	private String getLocationFromFirstParagraph(Document doc){
-		Elements longitude_elements = doc.getElementsByClass("longitude");
-		Elements latitude_elements = doc.getElementsByClass("latitude");
-		if(longitude_elements.size()==1 && latitude_elements.size()==1){
-			String longitude = longitude_elements.get(0).text();
-			String latitude = latitude_elements.get(0).text();
-			return longitude+"\t"+latitude;
-		}
-		else
-			return null;
-	}
+	
 	
 	private String getFirstParagraphMediaWiki(byte[] pageJsonBytes) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
@@ -423,11 +409,27 @@ public class Aggregator {
 	}
 
 	
-	
-	
+	public void eraseindex(String CLUSTER_NAME, String INDEX_NAME,String DOCUMENT_TYPE){
+		Node node = nodeBuilder().clusterName(CLUSTER_NAME).client(true).node();
+		Client client = node.client();
+		client.prepareDeleteByQuery(INDEX_NAME).
+        setQuery(QueryBuilders.matchAllQuery()).
+        setTypes(DOCUMENT_TYPE).
+        execute().actionGet();
+	}
+
+	private String getNewTitleFromRedirectUrl(String redirectUrl){
+		int startIndex = redirectUrl.lastIndexOf("/");
+		String new_title = redirectUrl.substring(startIndex+1, redirectUrl.length());
+		return new_title.replaceAll("_", " ");
+	}
 
 	
-
+	
+	/**
+	 * #############################################    DELETE THEM   ##################################################
+	 */
+	
 	/**
 	 * get the Id , Language and touched date of a wiki page by its title
 	 * get page info => ID , LANGUAGE and MODIFICATION DATE
@@ -469,17 +471,39 @@ public class Aggregator {
 		}
 		return null;
 	}
-	
-	
-	
-	public void eraseindex(String CLUSTER_NAME, String INDEX_NAME,String DOCUMENT_TYPE){
-		Node node = nodeBuilder().clusterName(CLUSTER_NAME).client(true).node();
-		Client client = node.client();
-		client.prepareDeleteByQuery(INDEX_NAME).
-        setQuery(QueryBuilders.matchAllQuery()).
-        setTypes(DOCUMENT_TYPE).
-        execute().actionGet();
+
+	private String getGeoLocationFromFirstParagraph(String title) throws IOException{
+		String pageUrl = "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page=" + title.replaceAll("\\s", "_");
+		byte[] pageJsonBytes = Helper.getUrl(pageUrl).getBytes();
+		String firstParagraph = getFirstParagraphMediaWiki(pageJsonBytes);
+		
+		
+		
+		if(firstParagraph!=null){
+			Document doc = Jsoup.parse(firstParagraph);
+			String geo_location = getLocationFromFirstParagraph(doc);
+			
+			
+			PageInfo pageInfo = new PageInfo();
+			pageInfo.setSummary(doc.text());
+//			pageInfo.setGeoLocation(geo_location);
+			
+			return geo_location;
+		}
+		else
+			return null;
+		
+	}
+	private String getLocationFromFirstParagraph(Document doc){
+		Elements longitude_elements = doc.getElementsByClass("longitude");
+		Elements latitude_elements = doc.getElementsByClass("latitude");
+		if(longitude_elements.size()==1 && latitude_elements.size()==1){
+			String longitude = longitude_elements.get(0).text();
+			String latitude = latitude_elements.get(0).text();
+			return longitude+"\t"+latitude;
+		}
+		else
+			return null;
 	}
 
-	
 }

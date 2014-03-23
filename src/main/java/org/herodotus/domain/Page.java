@@ -10,8 +10,10 @@ public class Page {
 	
 	private String summary;
 
-	private String url;
+	private String url;  //wikipedia oage url
 	
+	private String dbpedia_url;  //dbpedia page url
+
 	private String country;
 	
 	private String language;
@@ -40,8 +42,26 @@ public class Page {
 
 	private List<String> websitesList;
 
+	private List<String>  redirectsList;
 	
 	
+	
+	public String getDbpedia_url() {
+		return dbpedia_url;
+	}
+
+	public void setDbpedia_url(String dbpedia_url) {
+		this.dbpedia_url = dbpedia_url;
+	}
+
+	public List<String> getRedirectsList() {
+		return redirectsList;
+	}
+
+	public void setRedirectsList(List<String> redirectsList) {
+		this.redirectsList = redirectsList;
+	}
+
 	public int countNonEmptyArrayListFields(){
 		int c=0;
 		if(!websitesList.isEmpty())c++;
