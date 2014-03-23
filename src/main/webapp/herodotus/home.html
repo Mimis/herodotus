@@ -116,7 +116,7 @@
 
 <div class="row">
 	<div class="col-md-offset-3 col-lg-6">
-		<form class="form-search" ng-submit="search()">
+		<form class="form-search" ng-controller="SearchCtrl" ng-submit="search()">
 			<input ng-model="queryTerm" type="text" class="form-control"
 				placeholder="Search Museums (Location, Category)"> <br /> <br />
 			<br />
@@ -126,7 +126,7 @@
 
 
 <div class="row">
-	<p>HITS:{{hits.total}}</p>
+<!-- 	<p>HITS:{{hits.total}}</p> -->
 	
 	<div data-ng-repeat="facet in title_facets" class="col-md-offset-2 col-lg-8 thumbnail" size-column>
 			<p>{{facet.term}}:{{facet.count}}</p>
@@ -162,8 +162,8 @@
 
 
 <div class="row">
-	<div class="col-md-offset-1 col-lg-10">
-		<leaflet center="amsterdamCenter" markers="markers" layers="layers" defaults="defaults" height="640px" width="1040px"></leaflet>
+	<div class="col-lg-12">
+		<leaflet center="athensCenter" markers="markers" layers="layers" defaults="defaults" height="640px" width="99%"></leaflet>
 	</div>
 </div>
 

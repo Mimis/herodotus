@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="col-md-offset-3 col-lg-6">
+		<form class="form-search" ng-controller="SearchCtrl" ng-submit="search()">
+			<input ng-model="queryTerm" type="text" class="form-control"
+				placeholder="Search Museums (Location, Category)"> <br /> <br />
+			<br />
+		</form>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-5">
+		<div data-ng-repeat="museum in museums">
+			<h5><a target="_blank" href="{{museum._source.url}}">{{museum._source.title}}</a></h5>
+			<!--<p>id: {{museum.fields.id}}</p> -->
+			<!--<p>{{museum.fields.summary}}</p> -->
+		
+			<!--  
+			<div class="col-lg-6">
+				<b>categories</b>
+				<div data-ng-repeat="category in museum.fields.categories">
+					<p>{{category.title}}</p>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<b>outlinks</b>
+				<div data-ng-repeat="outlink in museum.fields.outlinks">
+					<p>{{outlink.title}}</p>
+				</div>
+			</div>
+			-->
+		</div>
+	</div>
+	
+	<div class="col-md-7">
+		<leaflet center="athensCenter" markers="markers" layers="layers" defaults="defaults" height="640px" width="99%"></leaflet>
+	</div>
+	
+</div>

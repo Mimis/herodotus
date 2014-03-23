@@ -1,3 +1,5 @@
+'use strict';
+
 /**
 * angular.module defines a module for our applicatoin, 'searchApp', with
 * an array of the modules searchApp depends on.
@@ -6,23 +8,29 @@
 */
 
 var searchApp = angular.module('searchApp', [
-    //'elasticjs.service',
-    'ngRoute',
-    'elasticsearch',
-    'leaflet-directive'
-    //'openlayers-directive'
-])
-    .config(['$routeProvider', function($routeProvider){
-        $routeProvider
-            .when('/', {
-                controller: 'Herodotus',
-                templateUrl: 'home.html'
-            })
-    }])
+  'ngRoute',
+  'elasticsearch',
+  'leaflet-directive',
+  'herodotusControllers'
+]);
 
-	.service('es', function (esFactory) {
-		return esFactory({
-			host: 'localhost:9200'
-		});
+searchApp.config(['$routeProvider', function($routeProvider){
+    $routeProvider
+    .when('/', {
+        controller: 'HomeCtrl',
+        templateUrl: 'home.html'
+    })
+    .when('/list', {
+        controller: 'ListCtrl',
+        templateUrl: 'list.html'
+    })
+}]);
+
+searchApp.service('es', function (esFactory) {
+	return esFactory({
+		host: 'localhost:9200'
 	});
+});
+
+
 
