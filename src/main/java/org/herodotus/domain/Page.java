@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Page {
 
-	private long id;
+	private long id;  //the wikipage id
 
-	private String title;
+	private String title; 
 	
 	private String summary;
 
@@ -14,7 +14,7 @@ public class Page {
 	
 	private List<String> categories;
 	
-	private List<String> outlinks;
+	private List<String> outlinks; //to other wikipedia pages(ENTITIES)
 
 	private String country;
 	
@@ -43,6 +43,19 @@ public class Page {
 
 	private List<String> websitesList;
 
+	
+	
+	public int countNonEmptyArrayListFields(){
+		int c=0;
+		if(!websitesList.isEmpty())c++;
+		if(!externalLinkList.isEmpty())c++;
+		if(!typesList.isEmpty())c++;
+		if(!thubnailsList.isEmpty())c++;
+		if(!locationList.isEmpty())c++;
+		if(!outlinks.isEmpty())c++;
+		if(!categories.isEmpty())c++;
+		return c;
+	}
 	
 	public GeoLocation getGeoLocation() {
 		return geoLocation;
@@ -170,6 +183,7 @@ public class Page {
 		return inLinkCounter;
 	}
 
+
 	public void setInLinkCounter(long inLinkCounter) {
 		this.inLinkCounter = inLinkCounter;
 	}
@@ -198,15 +212,20 @@ public class Page {
 		this.websitesList = websitesList;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
-		return "Page [id=" + id + ", title=" + title 
-				+ ", url=" + url + ", categories=" + categories + ", outlinks="
-				+ outlinks + "]";
+		return "Page [\nid=" + id + ", \ntitle=" + title + ", \nsummary=" + summary
+				+ ", \nurl=" + url + ", \ncategories=" + categories + ", \noutlinks="
+				+ outlinks + ", \ncountry=" + country + ", \nlanguage=" + language
+				+ ", \ntouched=" + touched + ", \ngeoLocation=" + geoLocation
+				+ ", \ninLinkCounter=" + inLinkCounter + ", \noutLinkCounter="
+				+ outLinkCounter + ", \nphotoCollectionUrl=" + photoCollectionUrl
+				+ ", \nlocationList=" + locationList + ", \nthubnailsList="
+				+ thubnailsList + ", \ntypesList=" + typesList
+				+ ", \nexternalLinkList=" + externalLinkList + ", \nwebsitesList="
+				+ websitesList + "]";
 	}
-
 	
+
 }

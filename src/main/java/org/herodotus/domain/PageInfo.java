@@ -137,5 +137,6 @@ public class PageInfo {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+
 	
 }
