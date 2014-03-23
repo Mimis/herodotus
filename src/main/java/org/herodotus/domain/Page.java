@@ -12,17 +12,16 @@ public class Page {
 
 	private String url;
 	
-	private List<String> categories;
-	
-	private List<String> outlinks; //page's outlinks to other wikipedia pages(ENTITIES) - internal links
-
 	private String country;
 	
 	private String language;
 	
 	private String touched; // date of This page was last modified on
+
+	private List<String> categories;
 	
-	
+	private List<String> outlinks; //page's outlinks to other wikipedia pages(ENTITIES) - internal links
+
 	private GeoLocation geoLocation;
 	
 	private long inLinkCounter;
@@ -37,9 +36,7 @@ public class Page {
 
 	private List<String>  typesList;
 
-	
 	private List<String> externalLinkList;
-
 
 	private List<String> websitesList;
 
