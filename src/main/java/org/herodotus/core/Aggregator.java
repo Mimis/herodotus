@@ -32,7 +32,7 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-		String list_of_museums_from_specific_country_url_gr = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url_gr = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=5&format=json";
 		String list_of_museums_from_specific_country_url_nl = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=500&format=json";
 		String list_of_museums_from_specific_country_url_en = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_England&prop=links&pllimit=500&format=json";
 		
@@ -124,7 +124,7 @@ public class Aggregator {
 			 * Filter invalid pages based on their  or their categories(templates,citaions needed, regions..)
 			 */
 			if( !isValidPage(museumTitle) ){
-				//System.out.println("#INVALID page:"+museumTitle);
+				System.out.println("#INVALID page:"+museumTitle);
 				continue;
 			}
 
@@ -143,7 +143,7 @@ public class Aggregator {
 			 * If there is a redirection got there to get the right page info!!!s
 			 */
 			if(page.getRedirectsList()!=null){
-				//System.out.println(museumTitle+"\n\t#Redirects:"+page.getRedirectsList()+"\n\t#size:"+page.getRedirectsList().size()+"\n\t#summary:"+page.getSummary()+"\n\t#size:"+page.getRedirectsList().size());
+				System.out.println(museumTitle+"\n\t#Redirects:"+page.getRedirectsList()+"\n\t#size:"+page.getRedirectsList().size()+"\n\t#summary:"+page.getSummary()+"\n\t#size:"+page.getRedirectsList().size());
 				String redirect_url = page.getRedirectsList().get(0);
 				museumTitle = getNewTitleFromRedirectUrl(redirect_url);
 				page = getDBPedia(museumTitle);
