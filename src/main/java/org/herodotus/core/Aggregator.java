@@ -377,7 +377,7 @@ public class Aggregator {
 		for(String title:titleArray){
 			title = title.toLowerCase();
 			if(title.contains("citation") || title.contains("regional unit") || title.contains("articles") || title.contains("template") || title.contains("list of") || title.contains("region")
-					|| title.contains("city") || title.contains("cities"))
+					|| title.contains("city") || title.contains("cities") || title.contains("places"))
 				return false;
 		}
 
