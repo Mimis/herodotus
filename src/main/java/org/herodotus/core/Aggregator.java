@@ -32,15 +32,17 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+//		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=500&format=json";
+		
 		//The country's name
-		String country = "Greece";
+		String country = "Netherland";
 		
 		//ELASTIC SEARCH setting
 		String CLUSTER_NAME = args[0];
 		String INDEX_NAME = "herodotus";
 		String DOCUMENT_TYPE = "page";		
-		Boolean erase_index_at_start = false;
+		Boolean erase_index_at_start = true;
 		//#############################################################
 		
 		
@@ -114,24 +116,35 @@ public class Aggregator {
 		int countTotalParsedDocuments=0;
 		int countNonEmptyFieldsTotal = 0;
 		for(String museumTitle:museumsTitleList){
+			
+			
 			/*
 			 * create page from DBpedia data
 			 */
 			Page page = getDBPedia(museumTitle);
 			if(page==null ){
-				System.out.println("\t#ERROR:page IS NULL");
+//				System.out.println("\t#ERROR:page IS NULL:"+museumTitle);
 				continue;
 			}
 
 
 			
+			
+			
+			
 			/*
 			 * Filter invalid pages based on their title or their categories(templates,citaions needed, regions..)
 			 */
 			if(!museumTitle.toLowerCase().contains("museum") && (!isValidPage(museumTitle) || !isValidPage(page.getCategories().toArray(new String[page.getCategories().size()])))){
+				System.out.println("#INVALID page:"+museumTitle);
 				continue;
 			}
 
+			
+			
+			
+			
+			
 			
 			/*
 			 * get page outlinks to wikipedia pages
@@ -363,7 +376,8 @@ public class Aggregator {
 	private boolean isValidPage(String... titleArray){
 		for(String title:titleArray){
 			title = title.toLowerCase();
-			if(title.contains("citation") || title.contains("regional unit") || title.contains("articles") || title.contains("template") || title.contains("list of") || title.contains("region"))
+			if(title.contains("citation") || title.contains("regional unit") || title.contains("articles") || title.contains("template") || title.contains("list of") || title.contains("region")
+					|| title.contains("city") || title.contains("cities"))
 				return false;
 		}
 

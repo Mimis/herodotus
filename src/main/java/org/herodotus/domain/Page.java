@@ -14,7 +14,7 @@ public class Page {
 	
 	private List<String> categories;
 	
-	private List<String> outlinks; //to other wikipedia pages(ENTITIES)
+	private List<String> outlinks; //page's outlinks to other wikipedia pages(ENTITIES) - internal links
 
 	private String country;
 	
