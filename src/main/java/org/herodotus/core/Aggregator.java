@@ -32,17 +32,17 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-//		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
-		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=500&format=json";
+		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+//		String list_of_museums_from_specific_country_url = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=500&format=json";
 		
 		//The country's name
-		String country = "Netherland";
+		String country = "Greece";
 		
 		//ELASTIC SEARCH setting
 		String CLUSTER_NAME = args[0];
 		String INDEX_NAME = "herodotus";
 		String DOCUMENT_TYPE = "page";		
-		Boolean erase_index_at_start = true;
+		Boolean erase_index_at_start = false;
 		//#############################################################
 		
 		
@@ -117,6 +117,14 @@ public class Aggregator {
 		int countNonEmptyFieldsTotal = 0;
 		for(String museumTitle:museumsTitleList){
 			
+			/*
+			 * Filter invalid pages based on their  or their categories(templates,citaions needed, regions..)
+			 */
+			if( !isValidPage(museumTitle) ){
+				System.out.println("#INVALID page:"+museumTitle);
+				continue;
+			}
+
 			
 			/*
 			 * create page from DBpedia data
@@ -133,7 +141,7 @@ public class Aggregator {
 			
 			
 			/*
-			 * Filter invalid pages based on their title or their categories(templates,citaions needed, regions..)
+			 * Filter invalid pages based on their  or their categories(templates,citaions needed, regions..)
 			 */
 			if(!museumTitle.toLowerCase().contains("museum") && (!isValidPage(museumTitle) || !isValidPage(page.getCategories().toArray(new String[page.getCategories().size()])))){
 				System.out.println("#INVALID page:"+museumTitle);
