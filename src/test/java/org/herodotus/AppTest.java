@@ -36,6 +36,10 @@ public class AppTest
      */
     public void testApp() throws UnsupportedEncodingException
     {
+    	String t="wikipedia:citation needed";
+    	if(!t.contains("wikipedia"))
+    		System.out.println(t);
     	
+    	assertTrue(true);
     }
 }
