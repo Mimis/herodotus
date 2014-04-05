@@ -22,6 +22,9 @@ public class Page {
 
 	private List<String> categories;
 	
+	private List<String> categoriesDbPediaURL;
+
+	
 	private List<String> outlinks; //page's outlinks to other wikipedia pages(ENTITIES) - internal links
 
 	private GeoLocation geoLocation;
@@ -140,6 +143,14 @@ public class Page {
 
 	
 	
+	public List<String> getCategoriesDbPediaURL() {
+		return categoriesDbPediaURL;
+	}
+
+	public void setCategoriesDbPediaURL(List<String> categoriesDbPediaURL) {
+		this.categoriesDbPediaURL = categoriesDbPediaURL;
+	}
+
 	public List<String> getCategories() {
 		return categories;
 	}

@@ -291,9 +291,15 @@ public class Aggregator {
 		wikiPageWebSite.addAll(getSemantic(semanticsNode, "http://xmlns.com/foaf/0.1/homepage", "value", null, null));
 		
 		
-		//GET PAGE subjects/categories
-		List<String> wikiPageCategories = getSemantic(semanticsNode, "http://purl.org/dc/terms/subject", "value", null, null);
-			
+		//GET PAGE subjects/categories and their DBpediaURLS
+		List<String> wikiPageCategoriesURL = getSemantic(semanticsNode, "http://purl.org/dc/terms/subject", "value", null, null);
+		List<String> wikiPageCategories = new ArrayList<String>();
+		for(String wikiPeakCategoryUrl:wikiPageCategoriesURL)
+			wikiPageCategories.add(wikiPeakCategoryUrl.split(":")[2]);
+		
+		
+		
+		
 		
 		/**
 		 * CREATE THE PAGE
@@ -318,7 +324,9 @@ public class Aggregator {
 		if(!wikiPagePhotoCollection.isEmpty())
 			page.setPhotoCollectionUrl(wikiPagePhotoCollection.get(0));
 		page.setWebsitesList(wikiPageWebSite);
+		page.setCategoriesDbPediaURL(wikiPageCategoriesURL);
 		page.setCategories(wikiPageCategories);
+
 		
 		
 		if(!redirects.isEmpty())
