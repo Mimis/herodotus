@@ -43,8 +43,7 @@ herodotusControllers.controller('SearchCtrl', [ '$scope', '$location', '$rootSco
 		// submits a search
 	    $scope.search = function() {
 	       	es.search(getQuery($scope.queryTerm), function (error, response) {
-	       		var responseArray = JSON.parse(response);
-	    		$rootScope.data = responseArray;
+	       		$rootScope.data = response;
 	    		$location.path("/list");
 	    	});
 	        $scope.queryTerm = "";
@@ -58,6 +57,7 @@ function getQuery(queryTerm) {
 		index: 'herodotus',
 		type: 'page',
 		body: {
+			from : 0, size : 30,
 		    query: {
 		      match: {
 		        title: queryTerm
