@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
-			<version>1.0.1</version>
+			<version>1.1.1</version>
 		</dependency>            
 		<dependency>
 			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
