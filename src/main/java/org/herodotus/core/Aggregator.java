@@ -32,13 +32,13 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-//		String list_of_museums_from_specific_country_url_gr = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=5000&format=json";
-		String list_of_museums_from_specific_country_url_nl = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=50&format=json";
+		String list_of_museums_from_specific_country_url_gr = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=50&format=json";
+//		String list_of_museums_from_specific_country_url_nl = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=50&format=json";
 		
 			
 		
 		//The country's name
-		String country = "Netherlands";
+		String country = "Greece";
 		
 		//ELASTIC SEARCH setting
 		String CLUSTER_NAME = args[0];
@@ -61,7 +61,7 @@ public class Aggregator {
 			aggregator.eraseindex(CLUSTER_NAME, INDEX_NAME, DOCUMENT_TYPE);
 		
 		
-		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url_nl, country);
+		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url_gr, country);
 		
 		
 		IndexerImpl indexer = new IndexerImpl();
@@ -224,7 +224,7 @@ public class Aggregator {
 		// original page url
 		String pageUrl_notEncoded = "http://en.wikipedia.org/wiki/"+title;
 		//encode url
-		title = title.replaceAll("Ð", "%E2%80%93");
+		title = title.replaceAll("ï¿½", "%E2%80%93");
 		String dbpediaUrl = "http://dbpedia.org/data/" + title + ".json";
 		String content = Helper.getUrl(dbpediaUrl);
 		if(content==null){

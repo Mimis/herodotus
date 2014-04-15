@@ -11,7 +11,8 @@ var searchApp = angular.module('searchApp', [
   'ngRoute',
   'elasticsearch',
   'leaflet-directive',
-  'herodotusControllers'
+  'herodotusControllers',
+  'infinite-scroll'
 ]);
 
 searchApp.config(['$routeProvider', function($routeProvider){
@@ -23,6 +24,10 @@ searchApp.config(['$routeProvider', function($routeProvider){
     .when('/list', {
         controller: 'ListCtrl',
         templateUrl: 'list.html'
+    })
+    .when('/:id', {
+        controller: 'DetailCtrl',
+        templateUrl: 'detail.html'
     })
 }]);
 

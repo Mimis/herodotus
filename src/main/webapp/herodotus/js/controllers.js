@@ -1,7 +1,7 @@
 'use strict';
 
 var herodotusControllers = angular.module('herodotusControllers',[]);
-//markersArray["denhaagMarker"]= denhaag
+
 var athens =  {
         lat: 37.96,
         lng: 23.71,
@@ -15,49 +15,127 @@ var initMarkerArray = {
     athensMarker: athens
 }
 
+var scrollStep = 20;
+var currentQueryTerm = "";
+var museums = [];
+
 
 herodotusControllers.controller('HomeCtrl', [ '$scope',
     function HomeCtrl($scope) {
-		// Initialize map
+		console.log("HomeCtrl started... ");
 		initializeMap($scope, initMarkerArray);
+	} 
+]);
+
+
+herodotusControllers.controller('SearchCtrl', [ '$scope', '$location', '$route', '$rootScope', 'es',
+    function SearchCtrl($scope, $location, $route, $rootScope, es) {
+		console.log("SearchCtrl started... ");
+		$scope.currentPage = 1;
+		$scope.busy = false;
+		$scope.searchByTerm = function() {
+			currentQueryTerm = $scope.queryTerm;
+	    	searchByTerm(es, $scope, $route, $rootScope, $location);
+	    };
+	    $scope.searchById = function(id) {
+	    	searchById(id, es, $scope, $rootScope, $location);
+	    };
+	    $scope.nextPage = function() {
+	    	console.log("nextPage() started... ");
+	    	$scope.busy = true;
+	    	$scope.currentPage = $scope.currentPage + 1;
+	    	$scope.queryTerm = currentQueryTerm;
+	    	
+	    	console.log("$scope.currentPage " + $scope.currentPage);
+	    	console.log("$scope.queryTerm " + $scope.queryTerm);
+	    	searchByTerm(es, $scope, $route, $rootScope, $location);
+	    	$scope.busy = false;
+	    }
 	} 
 ]);
 
 
 herodotusControllers.controller('ListCtrl', [ '$scope', '$rootScope',
     function ListCtrl($scope, $rootScope) {
+		console.log("ListCtrl started... ");
+		$scope.searchByTerm = function() {
+	    	searchByTerm(es, $scope, $rootScope, $location);
+	    };
 		$scope.museums = $rootScope.data.hits.hits;
 		var markers = createMarkerArray($scope);
 		initializeMap($scope, markers);
-		//console.log($scope.museums);
-		//console.log($scope.museums[0]._source.title);
-		//console.log($scope.museums[0]._source.geoLocation.latitude);
-		//$scope.title_facets = response.facets.title.terms;
-	} 
-]);
-
-//EXPLANATION WHY IS CRASHED: http://stackoverflow.com/questions/8081701/i-keep-getting-uncaught-syntaxerror-unexpected-token-o
-herodotusControllers.controller('SearchCtrl', [ '$scope', '$location', '$rootScope', 'es',
-    function SearchCtrl($scope, $location, $rootScope, es) {
-		// define our search function that will be called when a user
-		// submits a search
-	    $scope.search = function() {
-	       	es.search(getQuery($scope.queryTerm), function (error, response) {
-	       		$rootScope.data = response;
-	    		$location.path("/list");
-	    	});
-	        $scope.queryTerm = "";
-	    };
-	} 
+  	} 
 ]);
 
 
-function getQuery(queryTerm) {
+herodotusControllers.controller('DetailCtrl', [ '$scope', '$rootScope', 'es',
+    function DetailCtrl($scope, $rootScope, es) {
+		console.log("DetailCtrl started... ");
+		// We need an array to pass in the createMarkerArray
+   		$scope.museums = $rootScope.data.hits.hits;
+   		// Only one museum
+   		$scope.museum = $scope.museums[0];
+   		var markers = createMarkerArray($scope);
+		initializeMap($scope, markers);
+        $scope.queryTerm = "";
+	}
+]);
+
+
+function searchByTerm(es, $scope, $route, $rootScope, $location) {
+	console.log("searchByTerm() started... ");
+	console.log("$scope.currentPage " + $scope.currentPage);
+	es.search(getQuery($scope.queryTerm, $scope.currentPage), function (error, response) {
+   		//var responseArray = JSON.parse(response);
+		//$rootScope.data = responseArray;
+		$rootScope.data = response;
+		$scope.museums = $rootScope.data.hits.hits;
+		//museums.push($rootScope.data.hits.hits);
+		//$scope.museums = museums;
+		var currentPath = $location.path();
+		if(currentPath == "/list") {
+			$route.reload();
+		} else {
+			$location.path("/list");
+		}
+		
+	});
+    $scope.queryTerm = "";
+}
+
+
+function searchById(id, es, $scope, $rootScope, $location) {
+	es.search(getByIdQuery(id), function (error, response) {
+   		//var responseArray = JSON.parse(response);
+   		//$rootScope.data = responseArray;
+   		$rootScope.data = response;
+		$location.path("/" + id);
+	});
+    $scope.queryTerm = "";
+}
+
+
+function getByIdQuery(id) {
 	var queryString = { 
 		index: 'herodotus',
 		type: 'page',
 		body: {
-			from : 0, size : 30,
+			query: {
+		      match: {
+		        id: id
+		      }
+		    }
+		}
+	};
+	return queryString;
+}
+
+function getQuery(queryTerm, currentPage) {
+	var queryString = { 
+		index: 'herodotus',
+		type: 'page',
+		body: {
+			from : ((currentPage - 1) * scrollStep), size : (currentPage * scrollStep),
 		    query: {
 		      match: {
 		        title: queryTerm
@@ -112,11 +190,11 @@ function createMarkerArray($scope) {
 	angular.forEach(museums, function(museum, index){
 		if(museum._source.geoLocation != null) {
 			var marker = markerFactory(museum._source.geoLocation.latitude, museum._source.geoLocation.longitude, museum._source.title);
-			console.log(museum._source.geoLocation.latitude + " : " + museum._source.geoLocation.longitude);
+			//console.log(museum._source.geoLocation.latitude + " : " + museum._source.geoLocation.longitude);
 			markerCnt++;
 			markersArray[markerCnt] = marker;
 		} else {
-			console.log(museum._source.title + " has no geo-location info");
+			//console.log(museum._source.title + " has no geo-location info");
 		}
 		
 		//var marker = markerFactory(museum._source.geoLocation.latitute, museum._source.geoLocation.longitude, museum._source.title);

@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-offset-3 col-lg-6">
-		<form class="form-search" ng-controller="SearchCtrl" ng-submit="search()">
+		<form class="form-search" ng-controller="SearchCtrl" ng-submit="searchByTerm()">
 			<input ng-model="queryTerm" type="text" class="form-control"
 				placeholder="Search Museums (Location, Category)"> <br /> <br />
 			<br />
@@ -10,31 +10,25 @@
 
 
 <div class="row">
-	<div class="col-md-5">
-		<div data-ng-repeat="museum in museums">
-			<h5><a target="_blank" href="{{museum._source.url}}">{{museum._source.title}}</a></h5>
-			<!--<p>id: {{museum.fields.id}}</p> -->
-			<!--<p>{{museum.fields.summary}}</p> -->
-		
-			<!--  
-			<div class="col-lg-6">
-				<b>categories</b>
-				<div data-ng-repeat="category in museum.fields.categories">
-					<p>{{category.title}}</p>
+	<div class="col-md-5" ng-controller="SearchCtrl">
+<!-- 		<div infinite-scroll='nextPage()' infinite-scroll-disabled='busy' infinite-scroll-distance='1'> -->
+			<div data-ng-repeat="museum in museums">
+				<h3><a href ng-click="searchById(museum._source.id)">{{museum._source.title}}</a></h3>
+				<div data-ng-repeat="category in museum._source.categories">
+					<h5>{{category}}</h5>
 				</div>
+				<b>Country</b> {{museum._source.country}} <br/>
+				<b>Language</b> {{museum._source.language}} <br/>
+				<b>Geolocation</b> {{museum._source.geoLocation.longitude}} {{museum._source.geoLocation.latitude}} <br/>
+				<b>DBPedia URL</b> <a target="_blank" href="{{museum._source.dbpedia_url}}">{{museum._source.dbpedia_url}}</a><br/>
+				<b>WikiPedia URL</b> <a target="_blank" href="{{museum._source.url}}">{{museum._source.url}}</a><br/>
+				<b>Image Collection</b> <a target="_blank" href="{{museum._source.photoCollectionUrl}}">{{museum._source.photoCollectionUrl}}</a><br/>
 			</div>
-			<div class="col-lg-6">
-				<b>outlinks</b>
-				<div data-ng-repeat="outlink in museum.fields.outlinks">
-					<p>{{outlink.title}}</p>
-				</div>
-			</div>
-			-->
-		</div>
+<!-- 		</div> -->
 	</div>
-	
 	<div class="col-md-7">
-		<leaflet center="athensCenter" markers="markers" layers="layers" defaults="defaults" height="640px" width="99%"></leaflet>
+		<div class="map">
+			<leaflet center="athensCenter" markers="markers" layers="layers" defaults="defaults" height="640px" width="99%"></leaflet>
+		</div> 
 	</div>
-	
 </div>
