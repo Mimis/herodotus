@@ -32,13 +32,13 @@ public class Aggregator {
 		
 		//##########################  INPUT  ########################## 
 		//URL with a list of museums from a specific country
-//		String list_of_museums_from_specific_country_url_gr = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=5000&format=json";
-		String list_of_museums_from_specific_country_url_nl = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=50&format=json";
+		String list_of_museums_from_specific_country_url_gr = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_Greece&prop=links&pllimit=500&format=json";
+//		String list_of_museums_from_specific_country_url_nl = "http://en.wikipedia.org/w/api.php?action=query&titles=List_of_museums_in_the_Netherlands&prop=links&pllimit=500&format=json";
 		
 			
 		
 		//The country's name
-		String country = "Netherlands";
+		String country = "Greece";
 		
 		//ELASTIC SEARCH setting
 		String CLUSTER_NAME = args[0];
@@ -55,13 +55,19 @@ public class Aggregator {
 		
 		
 		
+		
+		
+		
+		
+		
+		
 		//##########################  MAIN  ##########################
 		Aggregator aggregator = new Aggregator();
 		if(erase_index_at_start)
 			aggregator.eraseindex(CLUSTER_NAME, INDEX_NAME, DOCUMENT_TYPE);
 		
 		
-		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url_nl, country);
+		List<Page> pageList = aggregator.pageSemantics(list_of_museums_from_specific_country_url_gr, country);
 		
 		
 		IndexerImpl indexer = new IndexerImpl();
@@ -123,7 +129,7 @@ public class Aggregator {
 			 * Filter invalid pages based on their  or their categories(templates,citations needed, regions..)
 			 */
 			if( !isValidPage(museumTitle) ){
-				System.out.println("#INVALID page:"+museumTitle);
+				//System.out.println("#INVALID page:"+museumTitle);
 				continue;
 			}
 
@@ -132,22 +138,23 @@ public class Aggregator {
 			 * create page from DBpedia data
 			 */
 			Page page = getDBPedia(museumTitle);
-			if(page==null ){
-				System.out.println("\t#ERROR:page IS NULL:"+museumTitle);
-				continue;
-			}
 
 
 			/**
 			 * If there is a redirection Go to the right page info!!!s
 			 */
-			if(page.getRedirectsList()!=null){
+			if(page!=null && page.getRedirectsList()!=null){
 				//System.out.println(museumTitle+"\n\t#Redirects:"+page.getRedirectsList()+"\n\t#size:"+page.getRedirectsList().size()+"\n\t#summary:"+page.getSummary()+"\n\t#size:"+page.getRedirectsList().size());
 				String redirect_url = page.getRedirectsList().get(0);
 				museumTitle = getNewTitleFromRedirectUrl(redirect_url);
 				page = getDBPedia(museumTitle);
 			}
 			
+			
+			if(page==null ){
+				//System.out.println("#ERROR:page IS NULL:"+museumTitle);
+				continue;
+			}
 			
 			
 			
@@ -156,7 +163,7 @@ public class Aggregator {
 			 * Filter invalid pages based on their  or their categories(templates,citations needed, regions..)
 			 */
 			if(!museumTitle.toLowerCase().contains("museum") && (!isValidPage(museumTitle) || !isValidPage(page.getCategories().toArray(new String[page.getCategories().size()])))){
-				System.out.println("#INVALID page:"+museumTitle);
+				//System.out.println("#INVALID page:"+museumTitle);
 				continue;
 			}
 
@@ -210,7 +217,7 @@ public class Aggregator {
 		 * print STATISTICS
 		 */
 		System.out.println("\t#NonEMPTY list FIELDS out of 7 in average:"+(double)countNonEmptyFieldsTotal/countTotalParsedDocuments);
-		System.out.println("##Nr of pages with geo location info from DBpedia:"+counterDocumentsWithGeoInfo);
+		System.out.println("##Nr of pages with geo location info from DBpedia:"+counterDocumentsWithGeoInfo+" (out of "+countTotalParsedDocuments+")");
 		return pageList;
 	}
 
@@ -228,7 +235,7 @@ public class Aggregator {
 		String dbpediaUrl = "http://dbpedia.org/data/" + title + ".json";
 		String content = Helper.getUrl(dbpediaUrl);
 		if(content==null){
-			System.out.println("\t#ERROR getUrl:"+title);
+			//System.out.println("\t#ERROR getUrl:"+title);
 			return null;
 		}
 		
@@ -238,7 +245,7 @@ public class Aggregator {
 		JsonNode semanticsNode = rootNode.get("http://dbpedia.org/resource/"+title);		
 
 		if(semanticsNode==null){
-			System.out.println("\t#ERROR DBPEDIA semanticsNode:"+title);
+			//System.out.println("\t#ERROR DBPEDIA semanticsNode:"+title);
 			return null;
 		}
 		
@@ -294,8 +301,9 @@ public class Aggregator {
 		//GET PAGE subjects/categories and their DBpediaURLS
 		List<String> wikiPageCategoriesURL = getSemantic(semanticsNode, "http://purl.org/dc/terms/subject", "value", null, null);
 		List<String> wikiPageCategories = new ArrayList<String>();
-		for(String wikiPeakCategoryUrl:wikiPageCategoriesURL)
-			wikiPageCategories.add(wikiPeakCategoryUrl.split(":")[2]);
+		for(String wikiPeakCategoryUrl:wikiPageCategoriesURL){
+			wikiPageCategories.add(wikiPeakCategoryUrl.split(":")[2].replaceAll("_", " "));
+		}
 		
 		
 		
