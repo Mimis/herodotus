@@ -18,12 +18,8 @@ var searchApp = angular.module('searchApp', [
 searchApp.config(['$routeProvider', function($routeProvider){
     $routeProvider
     .when('/', {
-        controller: 'HomeCtrl',
+        controller: 'SearchCtrl',
         templateUrl: 'home.html'
-    })
-    .when('/list', {
-        controller: 'ListCtrl',
-        templateUrl: 'list.html'
     })
     .when('/:id', {
         controller: 'DetailCtrl',
