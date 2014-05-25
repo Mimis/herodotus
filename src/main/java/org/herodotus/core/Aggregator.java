@@ -148,10 +148,10 @@ public class Aggregator {
 				String redirect_url = page.getRedirectsList().get(0);
 				museumTitle = getNewTitleFromRedirectUrl(redirect_url);
 				page = getDBPedia(museumTitle);
-				if(page==null )
-					continue;
 			}
 			
+			if(page==null )
+				continue;
 			
 			
 			
