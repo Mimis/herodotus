@@ -148,13 +148,11 @@ public class Aggregator {
 				String redirect_url = page.getRedirectsList().get(0);
 				museumTitle = getNewTitleFromRedirectUrl(redirect_url);
 				page = getDBPedia(museumTitle);
+				if(page==null )
+					continue;
 			}
 			
 			
-			if(page==null ){
-				//System.out.println("#ERROR:page IS NULL:"+museumTitle);
-				continue;
-			}
 			
 			
 			
@@ -231,7 +229,7 @@ public class Aggregator {
 		// original page url
 		String pageUrl_notEncoded = "http://en.wikipedia.org/wiki/"+title;
 		//encode url
-		title = title.replaceAll("Ð", "%E2%80%93");
+		title = title.replaceAll("ï¿½", "%E2%80%93");
 		String dbpediaUrl = "http://dbpedia.org/data/" + title + ".json";
 		String content = Helper.getUrl(dbpediaUrl);
 		if(content==null){
