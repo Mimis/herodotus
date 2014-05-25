@@ -77,6 +77,9 @@ public class Page {
 		return c;
 	}
 	
+	
+	
+	
 	public GeoLocation getGeoLocation() {
 		return geoLocation;
 	}

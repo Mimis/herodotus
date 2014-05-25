@@ -27,3 +27,93 @@ curl -XPOST localhost:9200/herodotus -H"Content-Type: application/json" -d '{
         }
     }
 }'
+
+
+##### MODEL SCHEMA #######
+curl -XPOST localhost:9200/museums_model_en -H"Content-Type: application/json" -d '{
+    "settings" : {
+        "number_of_shards" : 5,
+        "index.refresh_interval" : -1,
+        "index.number_of_replicas" : 1,
+        "index.indices.memory.index_buffer_size" : 20
+    },
+    "mappings" : {
+        "feature" : {
+            "_source" : { 
+                "enabled" : true
+            },
+            "_all" : {"enabled" : false},
+            "properties" : {
+                "word" : { "store" : "yes",    "type" : "string",   "index" : "not_analyzed" },
+                "language" : { "store" : "yes",    "type" : "string",   "index" : "not_analyzed" },
+                "name_entity" : { "store" : "yes",    "type" : "string",   "index" : "not_analyzed" },
+                "ngram_length" : { "store" : "yes",    "type" : "integer",  "index" : "not_analyzed" },                
+                "doc_frequency" : { "store" : "yes",    "type" : "long",  "index" : "not_analyzed" },
+                "source_frequency" : { "store" : "yes",    "type" : "long",  "index" : "not_analyzed" },
+                "idf_doc" : { "store" : "yes",    "type" : "double",  "index" : "not_analyzed",  "null_value" : 0.0 },
+                "idf_source" : { "store" : "yes",    "type" : "double",  "index" : "not_analyzed",  "null_value" : 0.0 },
+
+                "field": {
+                    "properties" : {            
+                                "name": {"null_value" : "na", "store" : "yes",         "type": "string", "index": "not_analyzed"},
+                                "doc_frequency": {    "store" : "yes",         "type": "long", "index": "not_analyzed"},
+                                "total_frequency": {  "store" : "yes",         "type": "long", "index": "not_analyzed"}
+
+                        },
+                        "type": "nested"
+
+                    },
+                "part_of_speech": {
+                        "properties": {
+                                "name": {"null_value" : "na", "store" : "yes",         "type": "string", "index": "not_analyzed"},
+                                "doc_frequency": {  "store" : "yes",         "type": "long", "index": "not_analyzed"},
+                                "total_frequency": {  "store" : "yes",         "type": "long", "index": "not_analyzed"}
+                        },
+                        "type": "nested"
+
+                    }
+            }
+        },
+        "index_stats" : {
+            "_source" : { 
+                "enabled" : true
+            },
+            "_all" : {"enabled" : false},
+            "properties" : {
+                "total_docs" : { "store" : "yes",    "type" : "long",  "index" : "not_analyzed" },
+                "total_sources" : { "store" : "yes",    "type" : "long",  "index" : "not_analyzed" }
+            }
+        }
+    }
+}'
+
+
+
+#### Query examples:
+{
+  "sort": [
+    {
+      "idf_doc": {
+        "order": "desc"
+      }
+    }
+  ],
+  "query": {
+    "bool": {
+      "should": [],
+      "must_not": [],
+      "must": [
+        {
+          "query_string": {
+            "fields": [
+              "ngram_length"
+            ],
+            "query": "1"
+          }
+        }
+      ]
+    }
+  },
+  "from": 0,
+  "size": 550
+}

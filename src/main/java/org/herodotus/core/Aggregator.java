@@ -195,7 +195,7 @@ public class Aggregator {
 			/**
 			 * Create/Save Page to list
 			 */
-			System.out.println("\n"+countTotalParsedDocuments++ + " museumTitle:"+museumTitle);
+			System.out.println("\n\t"+countTotalParsedDocuments++ + " museumTitle:"+museumTitle);
 			page.setTitle(museumTitle);
 			page.setOutlinks(outLinksList);
 			page.setCountry(country);
@@ -437,6 +437,7 @@ public class Aggregator {
         setQuery(QueryBuilders.matchAllQuery()).
         setTypes(DOCUMENT_TYPE).
         execute().actionGet();
+		node.close();
 	}
 
 	private String getNewTitleFromRedirectUrl(String redirectUrl){

@@ -71,11 +71,6 @@
 			<version>2.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>1.1.0</version>
-		</dependency>            
-		<dependency>
 			<!-- jsoup HTML parser library @ http://jsoup.org/ -->
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
@@ -87,9 +82,9 @@
 			<version>3.3</version>
 		</dependency>
 		<dependency>
-	      <groupId>com.machine_learning</groupId>
-	      <artifactId>machine-learning</artifactId>
-	      <version>1.0-SNAPSHOT</version>
-	    </dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>1.1.1</version>
+		</dependency>
 	</dependencies>
 </project>

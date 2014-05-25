@@ -1,6 +1,20 @@
 How to start
 ------------
+0)elasticsearch/config/elasticsearch.yml  => cluster.name: usr_name(dkarap)
 1) git pull origin master
 2) bin/elasticsearch -f
 3) mvn clean install jetty:run
 4) localhost/herodotus
+
+
+
+Install MACHINE LEARNING library to a maven project
+---------------------------------------------------
+1) mvn install:install-file -Dfile=../machine-learning/target/machine-learning-1.0-SNAPSHOT.jar  -DgroupId=com.machine_learning -DartifactId=machine-learning -Dversion=1.0-SNAPSHOT -Dpackaging=jar
+2)	add dependency to pom.xml 
+    <dependency>
+      <groupId>com.machine_learning</groupId>
+      <artifactId>machine-learning</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
