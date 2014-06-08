@@ -11,9 +11,8 @@ var searchApp = angular.module('searchApp', [
   'ngRoute',
   'elasticsearch',
   'leaflet-directive',
-  'herodotusControllers',
-  'infinite-scroll'
-]);
+  'herodotusControllers'
+ ]);
 
 searchApp.config(['$routeProvider', function($routeProvider){
     $routeProvider
