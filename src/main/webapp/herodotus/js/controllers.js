@@ -1,5 +1,6 @@
 'use strict';
 
+
 var herodotusControllers = angular.module('herodotusControllers',[]);
 
 var athens =  {
@@ -10,20 +11,50 @@ var athens =  {
         draggable: false	
 }
 
+    var regions = {
+        london: {
+            southWest: {
+                lat: 51.50211782162702,
+                lng: -0.14428138732910156
+            },
+            northEast: {
+                lat: 51.51280224425956,
+                lng: -0.11681556701660155
+            },
+
+        },
+        lisbon: {
+            southWest: {
+                lat: 38.700247900602726,
+                lng: -9.165430068969727
+            },
+            northEast: {
+                lat: 38.72703673982525,
+                lng: -9.110498428344725
+            }
+        },
+        warszawa: {
+            southWest: {
+                lat: 52.14823737817847,
+                lng: 20.793685913085934
+            },
+            northEast: {
+                lat: 52.31645452105213,
+                lng: 21.233139038085938
+            }
+        }
+    };
 
 var initMarkerArray = {
     athensMarker: athens
 }
 
-var scrollStep = 20;
 var currentQueryTerm = "";
 var museums = [];
 
 
 herodotusControllers.controller('SearchCtrl', [ '$scope', 'es',
-    function SearchCtrl($scope, es) {
-		console.log("SearchCtrl started... ");
-		
+    function SearchCtrl($scope, es) {		
 		initializeMap($scope, initMarkerArray);
 		
 		$scope.searchByTerm = function() {
@@ -42,7 +73,8 @@ function searchByTerm(es, $scope) {
 	es.search(getQuery($scope.queryTerm, $scope.currentPage), function (error, response) {
 		$scope.museums = response.hits.hits;
 		var markers = createMarkerArray($scope);
-		initializeMap($scope, markers);
+	    var maxbounds = computeMaxBounds(markers);
+		initializeMap($scope, markers,maxbounds);
 	});
     $scope.queryTerm = "";
 }
@@ -69,7 +101,7 @@ function getQuery(queryTerm, currentPage) {
 		index: 'herodotus',
 		type: 'page',
 		body: {
-			from : ((currentPage - 1) * scrollStep), size : (currentPage * scrollStep),
+			size : 100,
 		    query: {
 		      match: {
 		        title: queryTerm
@@ -82,14 +114,10 @@ function getQuery(queryTerm, currentPage) {
 }
 
 
-function initializeMap($scope, markerArray) {
+function initializeMap($scope, markerArray, maxbounds) {
 	
 	angular.extend($scope, {
-		athensCenter: {
-			lat: 37.96,
-	        lng: 23.71,
-            zoom: 6
-        },
+        maxbounds: maxbounds,
         markers: markerArray,
         layers: {
             baselayers: {
@@ -115,6 +143,38 @@ function initializeMap($scope, markerArray) {
     });
 }
 
+
+function computeMaxBounds(markersArray) {
+    var maxLat=-100000;
+    var minLat=100000;
+    var maxLon=-100000;
+    var minLon=100000;
+	angular.forEach(markersArray, function(mark, index){
+	    maxLat = maxLat > mark.lat ? maxLat : mark.lat;
+	    minLat = minLat < mark.lat ? minLat : mark.lat;	    
+  	    maxLon = maxLon > mark.lng ? maxLon : mark.lng;
+	    minLon = minLon < mark.lng ? minLon : mark.lng;
+	    
+	    console.log("mark.lat:"+mark.lat+"\tmark.lng:"+mark.lng);
+	});
+	
+    var maxbounds = {
+            southWest: {
+                lat: minLat,
+                lng: minLon
+            },
+            northEast: {
+                lat: maxLat,
+                lng: maxLon
+            },
+        };
+    console.log("maxbounds.southWest.lat:"+maxbounds.southWest.lat+"maxbounds.southWest.lng:"+maxbounds.southWest.lng);
+    console.log("maxbounds.northEast.lat:"+maxbounds.northEast.lat+"maxbounds.northEast.lng:"+maxbounds.northEast.lng);
+
+    return maxbounds;
+}
+
+
 function createMarkerArray($scope) {
 	var museums = $scope.museums;
 	var markersArray = [];
@@ -126,8 +186,6 @@ function createMarkerArray($scope) {
 			var marker = markerFactory(museum._source.geoLocation.latitude, museum._source.geoLocation.longitude, museum._source.title);
 			markerCnt++;
 			markersArray[markerCnt] = marker;
-		} else {
-			//console.log(museum._source.title + " has no geo-location info");
 		}
 	});
 	
